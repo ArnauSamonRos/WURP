@@ -196,7 +196,22 @@
     <ul class="race-list" id="raceList"></ul>
 
     <h3 class="h3 sub-head">Clubs</h3>
+    <form class="filters" id="clubFilters" aria-label="Filtra els clubs">
+      <fieldset class="chips">
+        <legend>Tipus de club</legend>
+        <label><input type="radio" name="ctype" value="" checked><span>Tots</span></label>
+        <label><input type="radio" name="ctype" value="social"><span>Social</span></label>
+        <label><input type="radio" name="ctype" value="marca"><span>Marca / botiga</span></label>
+        <label><input type="radio" name="ctype" value="federat"><span>Federat</span></label>
+      </fieldset>
+      <div class="filters__selects filters__selects--one">
+        <label class="select"><span>Municipi</span><select name="town" id="townSelect"><option value="">Tots</option></select></label>
+      </div>
+    </form>
+    <p class="sr-only" aria-live="polite" id="clubStatus"></p>
     <ul class="grid clubs" id="clubList"></ul>
+    <div class="cta-row cta-row--tight"><button class="btn btn--outline" type="button" id="clubMore" hidden></button></div>
+    <p class="note">Llistat basat en fonts públiques. Si portes un club i vols actualitzar-ne les dades, fes-nos-ho saber amb el formulari.</p>
 
     <div class="cta-row">
       <button class="btn btn--outline" id="openSubmit" aria-haspopup="dialog">Afegeix el teu club o carrera</button>

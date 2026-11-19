@@ -53,6 +53,7 @@ export class SvgMap {
     this.world.style.transform = `translate(${this.tx}px,${this.ty}px) scale(${this.s})`;
     this.el.style.setProperty('--inv', 1 / this.s); this.el.style.setProperty('--ks', 1 / (this.s * this.b));
     this.el.dataset.zoom = this.s > 5 ? 'hi' : this.s > 2 ? 'mid' : 'lo';
+    if (this._lastS !== this.s) { this._lastS = this.s; clearTimeout(this._ct); this._ct = setTimeout(() => this.cluster(), animate ? 460 : 60); }
   }
 
   view(x, y, s, animate = true) {
@@ -70,7 +71,7 @@ export class SvgMap {
     if (!points.length) return this.view(this.W / 2, this.H / 2, 1);
     const xs = points.map(p => p.x), ys = points.map(p => p.y);
     const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-    const s = Math.min((this.vw - pad * 2) / ((x1 - x0 || 1) * this.b), (this.vh - pad * 2) / ((y1 - y0 || 1) * this.b), 9);
+    const s = Math.min((this.vw - pad * 2) / ((x1 - x0 || 1) * this.b), (this.vh - pad * 2) / ((y1 - y0 || 1) * this.b), this.max);
     this.view((x0 + x1) / 2, (y0 + y1) / 2, s);
   }
 
@@ -79,7 +80,7 @@ export class SvgMap {
     return this.layers[name];
   }
   clear(name) { const l = this.layer(name); l.querySelectorAll('.smap__pin').forEach(p => delete this.markers[p.dataset.id]); l.innerHTML = ''; }
-  show(name, on) { this.layer(name).hidden = !on; }
+  show(name, on) { this.layer(name).hidden = !on; this.cluster(); }
 
   add(name, { id, lat, lng, html, cls = '', label, popup }) {
     const { x, y } = this.project(lat, lng);
@@ -90,6 +91,32 @@ export class SvgMap {
     b.addEventListener('click', e => { e.stopPropagation(); this.open(id); });
     this.layer(name).append(b);
     this.markers[id] = { x, y, popup, el: b };
+    clearTimeout(this._ct); this._ct = setTimeout(() => this.cluster(), 30);
+  }
+
+  // Agrupa marcadors que queden a menys de R px (en pantalla) i mostra un comptador
+  cluster(R = 44) {
+    this.pins.querySelectorAll('.smap__cluster').forEach(c => c.remove());
+    const k = this.b * this.s;
+    const items = Object.values(this.layers).filter(l => !l.hidden)
+      .flatMap(l => [...l.querySelectorAll('.smap__pin')]).map(el => ({ el, m: this.markers[el.dataset.id] })).filter(i => i.m);
+    items.forEach(i => { i.el.hidden = false; });
+    const groups = [];
+    for (const i of items) {
+      const g = groups.find(g => Math.hypot((g.x - i.m.x) * k, (g.y - i.m.y) * k) < R);
+      if (g) { g.items.push(i); g.x = g.items.reduce((a, j) => a + j.m.x, 0) / g.items.length; g.y = g.items.reduce((a, j) => a + j.m.y, 0) / g.items.length; }
+      else groups.push({ x: i.m.x, y: i.m.y, items: [i] });
+    }
+    for (const g of groups) {
+      if (g.items.length < 2 || g.items.some(i => i.el.classList.contains('is-active'))) continue;
+      g.items.forEach(i => { i.el.hidden = true; });
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'smap__pin smap__cluster'; b.textContent = g.items.length;
+      b.setAttribute('aria-label', `${g.items.length} clubs i carreres aquí. Apropa el mapa`);
+      b.style.left = (g.x / this.W * 100) + '%'; b.style.top = (g.y / this.H * 100) + '%';
+      b.addEventListener('click', e => { e.stopPropagation(); this.fit(g.items.map(i => i.m), 80); });
+      this.pins.append(b);
+    }
   }
 
   open(id, zoomTo) {

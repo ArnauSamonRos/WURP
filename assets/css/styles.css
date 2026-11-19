@@ -469,3 +469,18 @@ thead th{font:600 11px/1 var(--f-body);letter-spacing:.14em;text-transform:upper
 /* Aparició */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.is-in{opacity:1;transform:none}
+
+/* Clubs: tipus i filtres */
+.club__type{align-self:flex-start;font:600 11px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;padding:5px 8px;border:1px solid var(--line);color:var(--ink-2)}
+.club__type--social{border-color:var(--granat);color:var(--granat);background:var(--granat-50)}
+.club__type--federat{background:var(--ink);border-color:var(--ink);color:var(--crema)}
+.club .race__actions a{color:var(--granat)}
+.filters__selects--one{grid-template-columns:1fr}
+@media (min-width:720px){.filters__selects--one{min-width:260px}}
+.cta-row--tight{margin-top:24px}
+.note{margin-top:20px;font-size:13px;color:var(--ink-2);text-align:center}
+.mk--club.mk--marca svg{color:#6E6266}
+.mk--club.mk--federat svg{color:var(--ink)}
+.mk--club.mk--social svg{color:var(--granat)}
+.smap__cluster{width:34px;height:34px;padding:0;border-radius:50%;background:var(--granat);color:var(--crema);font:700 15px/34px var(--f-head);text-align:center;box-shadow:0 0 0 3px var(--crema),0 0 0 4px var(--granat)}
+.smap__pin[hidden]{display:none}

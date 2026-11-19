@@ -58,20 +58,48 @@ function renderRaces() {
   if (map) drawRaces(list);
 }
 
-function renderClubs() {
-  const sorted = [...clubs].sort((a, b) => b.partner - a.partner);
-  $('#clubList').innerHTML = sorted.map(c => `
-    <li class="club ${c.partner ? 'club--partner' : ''}">
+const CLUB_TYPE = { social: 'Social', marca: 'Marca / botiga', federat: 'Federat' };
+let showAllClubs = false;
+const PAGE = 9;
+
+function filteredClubs() {
+  const f = Object.fromEntries(new FormData($('#clubFilters')));
+  return clubs.filter(c => (!f.ctype || c.type === f.ctype) && (!f.town || c.town === f.town));
+}
+
+function clubCard(c) {
+  return `<li class="club ${c.partner ? 'club--partner' : ''}">
       ${c.partner ? `<span class="club__frame">${peak()}${t('map.partner')}</span>` : ''}
+      <span class="club__type club__type--${c.type}">${CLUB_TYPE[c.type]}</span>
       <h4>${esc(c.name)}</h4>
-      <p>${esc(c.description || '')}</p>
+      ${c.description ? `<p>${esc(c.description)}</p>` : ''}
       <dl>
-        <dt>Zona</dt><dd>${esc(c.zone)}</dd>
-        <dt>Entrenaments</dt><dd>${esc(c.days)}</dd>
-        <dt>Contacte</dt><dd><a href="mailto:${esc(c.contact)}">${esc(c.contact)}</a>${c.instagram ? ` · <a href="https://instagram.com/${esc(c.instagram)}" rel="noopener">@${esc(c.instagram)}</a>` : ''}</dd>
+        <dt>Municipi</dt><dd>${esc(c.town)}</dd>
+        ${c.days && c.days !== 'Per confirmar' ? `<dt>Quan i on</dt><dd>${esc(c.days)}</dd>` : ''}
+        ${c.cost && c.cost !== 'Per confirmar' ? `<dt>Cost</dt><dd>${esc(c.cost)}</dd>` : ''}
+        ${c.attendance ? `<dt>Grup</dt><dd>${esc(c.attendance)}</dd>` : ''}
       </dl>
-      <div class="race__actions"><button type="button" data-locate="${c.id}">Al mapa</button></div>
-    </li>`).join('');
+      <div class="race__actions">
+        <button type="button" data-locate="${c.id}">Al mapa</button>
+        ${c.source ? `<a href="${esc(c.source)}" target="_blank" rel="noopener">Més info<span class="sr-only"> sobre ${esc(c.name)} (pestanya nova)</span></a>` : ''}
+      </div>
+    </li>`;
+}
+
+function renderClubs() {
+  const list = filteredClubs().sort((a, b) => b.partner - a.partner || a.name.localeCompare(b.name, 'ca'));
+  const shown = showAllClubs ? list : list.slice(0, PAGE);
+  $('#clubList').innerHTML = shown.length ? shown.map(clubCard).join('') : '<li class="empty">Cap club amb aquests filtres.</li>';
+  const more = $('#clubMore');
+  more.hidden = list.length <= PAGE || showAllClubs;
+  more.textContent = `Veure tots els clubs (${list.length})`;
+  $('#clubStatus').textContent = `${list.length} clubs`;
+  if (map) drawClubs(list);
+}
+
+function fillTowns() {
+  const towns = [...new Set(clubs.map(c => c.town))].sort((a, b) => a.localeCompare(b, 'ca'));
+  $('#townSelect').insertAdjacentHTML('beforeend', towns.map(t => `<option>${esc(t)}</option>`).join(''));
 }
 
 function fillMonths() {
@@ -83,9 +111,11 @@ function fillMonths() {
 }
 
 /* ---------- Mapa SVG ---------- */
-const popClub = c => `<div class="pop">${c.partner ? `<p class="pop__badge">${peak()}${t('map.partner')}</p>` : ''}<h3>${esc(c.name)}</h3>
-  <p class="pop__k">Zona</p><p>${esc(c.zone)}</p><p class="pop__k">Entrenaments</p><p>${esc(c.days)}</p>
-  <p><a href="mailto:${esc(c.contact)}">${esc(c.contact)}</a></p></div>`;
+const popClub = c => `<div class="pop">${c.partner ? `<p class="pop__badge">${peak()}${t('map.partner')}</p>` : ''}<p class="pop__k" style="margin-top:0">${CLUB_TYPE[c.type]} · ${esc(c.town)}</p><h3>${esc(c.name)}</h3>
+  ${c.days && c.days !== 'Per confirmar' ? `<p>${esc(c.days)}</p>` : ''}
+  ${c.cost && c.cost !== 'Per confirmar' ? `<p>${esc(c.cost)}</p>` : ''}
+  ${c.approx ? '<p class="pop__k">Ubicació aproximada</p>' : ''}
+  ${c.source ? `<p><a href="${esc(c.source)}" target="_blank" rel="noopener">Més info →</a></p>` : ''}</div>`;
 const popRace = r => `<div class="pop">${r.challenge ? `<p class="pop__badge">${peak()}${t('map.challenge')}</p>` : ''}<h3>${esc(r.name)}</h3>
   <p>${fmtDate(r.date, { weekday: 'short', day: 'numeric', month: 'long' })} · ${esc(r.town)}</p>
   <p>${km(r.distanceKm)} · ${t('rtype.' + r.type)} · ${esc(r.pace)}</p>
@@ -97,10 +127,15 @@ function drawRaces(list) {
     label: `Carrera: ${r.name}, ${fmtDate(r.date, { day: 'numeric', month: 'long' })}`, popup: popRace(r) }));
 }
 
+function drawClubs(list) {
+  map.clear('clubs');
+  list.forEach(c => map.add('clubs', { id: c.id, lat: c.lat, lng: c.lng, html: peak(), cls: `mk mk--club mk--${c.type} ${c.partner ? 'is-partner' : ''}`,
+    label: `Club: ${c.name}, ${c.town}`, popup: popClub(c) }));
+}
+
 async function initMap() {
   map = await new SvgMap($('#map')).load(CONFIG.map.svg);
-  clubs.forEach(c => map.add('clubs', { id: c.id, lat: c.lat, lng: c.lng, html: peak(), cls: `mk mk--club ${c.partner ? 'is-partner' : ''}`,
-    label: `Club: ${c.name}${c.partner ? ` (${t('map.partner')})` : ''}`, popup: popClub(c) }));
+  drawClubs(filteredClubs());
   drawRaces(filteredRaces());
   map.fit([...clubs, ...races].map(p => map.project(p.lat, p.lng)), 50);
   const toggle = (id, layer) => $(id).addEventListener('change', e => map.show(layer, e.target.checked));
@@ -121,7 +156,9 @@ let mapReady;
 export async function initExplore() {
   [races, clubs] = await Promise.all([load('races'), load('clubs')]);
   races.sort((a, b) => a.date.localeCompare(b.date));
-  featured(); fillMonths(); renderRaces(); renderClubs();
+  featured(); fillMonths(); fillTowns(); renderRaces(); renderClubs();
+  $('#clubFilters').addEventListener('change', () => { showAllClubs = false; renderClubs(); });
+  $('#clubMore').addEventListener('click', () => { showAllClubs = true; renderClubs(); });
   $('#raceFilters').addEventListener('change', renderRaces);
   document.addEventListener('click', e => { const b = e.target.closest('[data-locate]'); if (b) locate(b.dataset.locate); });
 
