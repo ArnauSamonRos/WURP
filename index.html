@@ -32,7 +32,8 @@
     <nav class="nav" id="nav" aria-label="Principal">
       <ul>
         <li><a href="#roba">Roba</a></li>
-        <li><a href="#carreres">Carreres i clubs</a></li>
+        <li><a href="#carreres">Carreres</a></li>
+        <li><a href="#clubs">Clubs</a></li>
         <li><a href="#reptes">Reptes</a></li>
         <li><a href="#nosaltres">Nosaltres</a></li>
       </ul>
@@ -66,7 +67,8 @@
     <p class="hero__lead">Tria el teu objectiu. Treballa'l cada setmana. Corre amb gent. Avança al teu ritme.</p>
     <div class="hero__ctas">
       <a class="btn btn--light" href="#roba">Roba</a>
-      <a class="btn btn--light" href="#carreres">Carreres i clubs</a>
+      <a class="btn btn--light" href="#carreres">Carreres</a>
+      <a class="btn btn--light" href="#clubs">Clubs</a>
       <a class="btn btn--light" href="#reptes">Reptes</a>
     </div>
   </div>
@@ -154,23 +156,19 @@
   </div>
 </section>
 
-<!-- CARRERES I CLUBS -->
+<!-- CARRERES -->
 <section class="section explore" id="carreres" aria-labelledby="carreres-title">
   <div class="wrap">
     <header class="section__head">
-      <p class="eyebrow">Carreres i clubs</p>
-      <h2 id="carreres-title" class="h2">On corre<br>la teva ciutat</h2>
-      <p class="section__lead">Social runs, curses i quedades. Clubs on trobar gent al teu ritme, sigui quin sigui.</p>
+      <p class="eyebrow">Carreres</p>
+      <h2 id="carreres-title" class="h2">Tria la teva<br>propera cursa</h2>
+      <p class="section__lead">Curses populars, cros i social runs de tot Catalunya. Una cada setmana, amb quedada WURP inclosa.</p>
     </header>
 
     <article class="featured-race" id="featuredRace" aria-labelledby="featured-title"></article>
 
     <div class="map-block">
-      <div class="map-toggles" role="group" aria-label="Capes del mapa">
-        <label class="toggle"><input type="checkbox" id="layerClubs" checked><span class="toggle__dot toggle__dot--club"></span>Clubs</label>
-        <label class="toggle"><input type="checkbox" id="layerRaces" checked><span class="toggle__dot toggle__dot--race"></span>Carreres</label>
-      </div>
-      <div class="map" id="map" aria-label="Mapa interactiu de clubs i carreres. La mateixa informació és a la llista de sota." role="region">
+      <div class="map" id="map" data-layer="races" aria-label="Mapa de curses. La mateixa informació és al calendari de sota." role="region">
         <div class="map__placeholder"><svg aria-hidden="true"><use href="#peak"/></svg><span>Carregant el mapa…</span></div>
       </div>
     </div>
@@ -209,7 +207,27 @@
     <div class="race-groups" id="raceList"></div>
     <div class="cta-row cta-row--tight"><button class="btn btn--outline" type="button" id="raceMore" hidden></button></div>
 
-    <h3 class="h3 sub-head">Clubs</h3>
+    <div class="cta-row">
+      <button class="btn btn--outline" type="button" data-submit="cursa" aria-haspopup="dialog">Afegeix la teva cursa</button>
+    </div>
+  </div>
+</section>
+
+<!-- CLUBS -->
+<section class="section explore explore--clubs" id="clubs" aria-labelledby="clubs-title">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow">Clubs</p>
+      <h2 id="clubs-title" class="h2">Troba la teva<br>gent</h2>
+      <p class="section__lead">Clubs socials, de marca i federats. Tria'n un al teu ritme i al teu barri. Ningú es queda enrere.</p>
+    </header>
+
+    <div class="map-block">
+      <div class="map" id="mapClubs" data-layer="clubs" aria-label="Mapa de clubs. La mateixa informació és a la llista de sota." role="region">
+        <div class="map__placeholder"><svg aria-hidden="true"><use href="#peak"/></svg><span>Carregant el mapa…</span></div>
+      </div>
+    </div>
+
     <form class="filters" id="clubFilters" aria-label="Filtra els clubs">
       <fieldset class="chips">
         <legend>Tipus de club</legend>
@@ -228,7 +246,7 @@
     <p class="note">Llistat basat en fonts públiques. Si portes un club i vols actualitzar-ne les dades, fes-nos-ho saber amb el formulari.</p>
 
     <div class="cta-row">
-      <button class="btn btn--outline" id="openSubmit" aria-haspopup="dialog">Afegeix el teu club o carrera</button>
+      <button class="btn btn--outline" type="button" data-submit="club" aria-haspopup="dialog">Afegeix el teu club</button>
     </div>
   </div>
 </section>
@@ -366,7 +384,7 @@
 <dialog class="modal modal--sm" id="submitModal" aria-labelledby="sm-title">
   <div class="modal__body">
     <button class="modal__close" data-close aria-label="Tanca">×</button>
-    <h2 id="sm-title" class="h3">Afegeix el teu club o carrera</h2>
+    <h2 id="sm-title" class="h3">Afegeix el teu club o cursa</h2>
     <p>Ho revisem a mà. Si encaixa, surt al mapa.</p>
     <form id="submitForm" class="form" novalidate>
       <fieldset class="chips">

@@ -5,7 +5,7 @@ import { t, fmtDate } from './i18n.js';
 import { $, esc, peak, openDialog, submitForm, toast } from './ui.js';
 import { SvgMap } from './svgmap.js';
 
-let races = [], clubs = [], map;
+let races = [], clubs = [], map, mapC;
 
 const monthKey = iso => iso.slice(0, 7);
 const kmLabel = n => n === 42.2 || n === 42.195 ? 'Marató' : n === 21.1 || n === 21.0975 ? 'Mitja' : n < 1 ? `${Math.round(n * 1000)} m` : `${String(+n.toFixed(1)).replace('.', ',')}K`;
@@ -203,7 +203,7 @@ function renderClubs() {
   more.hidden = list.length <= PAGE || showAllClubs;
   more.textContent = `Veure tots els clubs (${list.length})`;
   $('#clubStatus').textContent = `${list.length} clubs`;
-  if (map) drawClubs(list);
+  if (mapC) drawClubs(list);
 }
 
 function fillTowns() {
@@ -237,31 +237,44 @@ function drawRaces(list) {
 }
 
 function drawClubs(list) {
-  map.clear('clubs');
-  list.forEach(c => map.add('clubs', { id: c.id, lat: c.lat, lng: c.lng, html: peak(), cls: `mk mk--club mk--${c.type} ${c.partner ? 'is-partner' : ''}`,
+  mapC.clear('clubs');
+  list.forEach(c => mapC.add('clubs', { id: c.id, lat: c.lat, lng: c.lng, html: peak(), cls: `mk mk--club mk--${c.type} ${c.partner ? 'is-partner' : ''}`,
     label: `Club: ${c.name}, ${c.town}`, popup: popClub(c) }));
 }
 
 async function initMap() {
   map = await new SvgMap($('#map')).load(CONFIG.map.svg);
-  drawClubs(filteredClubs());
   drawRaces(filteredRaces());
-  map.fit([...clubs, ...races].map(p => map.project(p.lat, p.lng)), 50);
-  const toggle = (id, layer) => $(id).addEventListener('change', e => map.show(layer, e.target.checked));
-  toggle('#layerClubs', 'clubs'); toggle('#layerRaces', 'races');
+  map.fit(races.map(p => map.project(p.lat, p.lng)), 50);
+}
+
+async function initClubMap() {
+  mapC = await new SvgMap($('#mapClubs')).load(CONFIG.map.svg);
+  drawClubs(filteredClubs());
+  mapC.fit(clubs.map(p => mapC.project(p.lat, p.lng)), 50);
 }
 
 function locate(id) {
-  $('#map').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  const go = () => {
-    const isClub = id.startsWith('c'); const box = $(isClub ? '#layerClubs' : '#layerRaces');
-    if (!box.checked) { box.checked = true; box.dispatchEvent(new Event('change')); }
-    map.open(id, 6);
-  };
-  map ? go() : mapReady.then(go);
+  const isClub = id.startsWith('club-');
+  $(isClub ? '#mapClubs' : '#map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const go = () => (isClub ? mapC : map).open(id, 6);
+  (isClub ? clubMapReady : mapReady).then(go);
 }
 
-let mapReady;
+// Càrrega diferida d'un mapa: només quan s'hi acosta l'usuari.
+function lazy(sel, init) {
+  return new Promise(res => {
+    const el = $(sel);
+    const io = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      init().then(res).catch(err => { console.error(err); const s = el.querySelector('.map__placeholder span'); if (s) s.textContent = 'No s\'ha pogut carregar el mapa. Tens la llista a sota.'; });
+    }, { rootMargin: '400px' });
+    io.observe(el);
+  });
+}
+
+let mapReady, clubMapReady;
 export async function initExplore() {
   [races, clubs] = await Promise.all([load('races'), load('clubs')]);
   races.sort((a, b) => a.date.localeCompare(b.date));
@@ -281,15 +294,16 @@ export async function initExplore() {
   const deep = location.hash.match(/^#cursa=(.+)$/); if (deep) openRace(decodeURIComponent(deep[1]));
   document.addEventListener('click', e => { const b = e.target.closest('[data-locate]'); if (b) locate(b.dataset.locate); });
 
-  // Càrrega diferida del mapa: només quan s'hi acosta l'usuari.
-  mapReady = new Promise(res => {
-    const io = new IntersectionObserver(([en]) => { if (en.isIntersecting) { io.disconnect(); initMap().then(res).catch(err => { console.error(err); $('#map .map__placeholder span').textContent = 'No s\'ha pogut carregar el mapa. Tens la llista a sota.'; }); } }, { rootMargin: '400px' });
-    io.observe($('#map'));
-  });
+  mapReady = lazy('#map', initMap);
+  clubMapReady = lazy('#mapClubs', initClubMap);
 
   // Formulari "Afegeix el teu club o carrera"
   const form = $('#submitForm');
-  $('#openSubmit').addEventListener('click', () => openDialog($('#submitModal')));
+  document.querySelectorAll('[data-submit]').forEach(b => b.addEventListener('click', () => {
+    const r = form.querySelector(`input[name=kind][value="${b.dataset.submit}"]`);
+    r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true }));
+    openDialog($('#submitModal'));
+  }));
   form.addEventListener('change', e => {
     if (e.target.name !== 'kind') return;
     const k = e.target.value;

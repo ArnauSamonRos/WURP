@@ -54,4 +54,7 @@ function initReveal() {
   await initI18n();
   const results = await Promise.allSettled([initShop(), initExplore(), initChallenges(), initCommunity()]);
   results.forEach(r => r.status === 'rejected' && console.error(r.reason));
+  // El contingut es carrega després del salt inicial a l'àncora: hi tornem
+  const h = location.hash.slice(1);
+  if (h && !h.startsWith('cursa=')) document.getElementById(h)?.scrollIntoView();
 })();
