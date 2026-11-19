@@ -1,7 +1,7 @@
 // Mapa SVG de Catalunya, sense dependències: zoom, arrossegar, pessic, teclat i marcadors HTML.
 // Projecció a partir de data-proj del SVG (generat per scripts/gen_map.py).
 export class SvgMap {
-  constructor(el, { onSelect, minScale = 1, maxScale = 14 } = {}) {
+  constructor(el, { onSelect, minScale = 1, maxScale = 48 } = {}) {
     this.el = el; this.onSelect = onSelect; this.min = minScale; this.max = maxScale;
     this.s = 1; this.tx = 0; this.ty = 0; this.layers = {}; this.markers = {};
   }
@@ -98,6 +98,7 @@ export class SvgMap {
   cluster(R = 44) {
     this.pins.querySelectorAll('.smap__cluster').forEach(c => c.remove());
     const k = this.b * this.s;
+    const atMax = this.s >= this.max * 0.95;
     const items = Object.values(this.layers).filter(l => !l.hidden)
       .flatMap(l => [...l.querySelectorAll('.smap__pin')]).map(el => ({ el, m: this.markers[el.dataset.id] })).filter(i => i.m);
     items.forEach(i => { i.el.hidden = false; });
@@ -108,7 +109,7 @@ export class SvgMap {
       else groups.push({ x: i.m.x, y: i.m.y, items: [i] });
     }
     for (const g of groups) {
-      if (g.items.length < 2 || g.items.some(i => i.el.classList.contains('is-active'))) continue;
+      if (atMax || g.items.length < 2 || g.items.some(i => i.el.classList.contains('is-active'))) continue;
       g.items.forEach(i => { i.el.hidden = true; });
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'smap__pin smap__cluster'; b.textContent = g.items.length;
