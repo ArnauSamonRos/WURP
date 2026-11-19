@@ -114,7 +114,7 @@ export class SvgMap {
       b.type = 'button'; b.className = 'smap__pin smap__cluster'; b.textContent = g.items.length;
       b.setAttribute('aria-label', `${g.items.length} clubs i carreres aquí. Apropa el mapa`);
       b.style.left = (g.x / this.W * 100) + '%'; b.style.top = (g.y / this.H * 100) + '%';
-      b.addEventListener('click', e => { e.stopPropagation(); this.fit(g.items.map(i => i.m), 80); });
+      b.addEventListener('click', e => { e.stopPropagation(); const prev = this.s; this.fit(g.items.map(i => i.m), 80); if (this.s < prev * 1.8) this.view(g.x, g.y, prev * 2); });
       this.pins.append(b);
     }
   }
