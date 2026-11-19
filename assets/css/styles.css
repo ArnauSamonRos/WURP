@@ -658,3 +658,29 @@ fieldset.chips--scroll{min-width:0;max-width:100vw}
   .banner .ascent__step h3{font-size:22px}
   .banner .ascent__step p{font-size:13px}
 }
+
+/* Banner v2: fletxes laterals i manifest destacat */
+.banner__ctrl{display:none}
+.banner__arrow{position:absolute;top:50%;z-index:6;width:52px;height:52px;margin-top:-26px;display:grid;place-items:center;border:1px solid rgba(244,239,234,.5);background:rgba(26,10,14,.25);color:var(--crema);backdrop-filter:blur(6px);transition:background .2s,color .2s,border-color .2s}
+.banner__arrow svg{width:22px;height:22px}
+.banner__arrow:hover{background:var(--crema);color:var(--granat);border-color:var(--crema)}
+.banner__arrow--prev{left:16px}.banner__arrow--next{right:16px}
+@media (min-width:1300px){.banner__arrow--prev{left:32px}.banner__arrow--next{right:32px}}
+@media (max-width:899px){.banner__arrow{top:auto;bottom:20px;margin-top:0;width:44px;height:44px}.banner .hero__content{padding-bottom:84px}}
+.banner .manifest{position:relative;overflow:hidden;color:var(--crema);background:radial-gradient(120% 90% at 85% 15%,#8A2A45 0%,var(--granat) 45%,#3E0C1B 100%)}
+.banner .manifest::before{content:"";position:absolute;right:-6%;top:-12%;width:min(60vw,720px);aspect-ratio:84/100;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-5 -7 84 100'%3E%3Cpath d='M37 0 L74 55.5 L54.8 86 L37 59 L19.2 86 L0 55.5 Z' fill='none' stroke='%23F4EFEA' stroke-width='.6'/%3E%3C/svg%3E") no-repeat center/contain;opacity:.16;pointer-events:none}
+.banner .manifest > .wrap{position:relative}
+.banner .manifest .eyebrow{color:var(--granat-100)}
+.banner .manifest .h2{color:var(--crema)}
+.banner .manifest .ascent__line{color:var(--crema);opacity:.6}
+.banner .manifest .ascent__list{border-color:rgba(244,239,234,.5)}
+.banner .manifest .ascent__step{border-color:rgba(244,239,234,.4)}
+.banner .manifest .ascent__step::before{background:var(--granat);border-color:var(--crema)}
+.banner .manifest .ascent__n{color:var(--granat-100)}
+.banner .manifest .ascent__step h3{color:var(--crema)}
+.banner .manifest .ascent__step p{color:#E9D3D9}
+.banner .manifest .ascent__step--peak h3{color:#fff}
+.banner .manifest .ascent__step--peak .peak-icon{color:var(--crema);background:transparent}
+.banner .manifest .ascent__step--peak{border-left-color:transparent}
+@media (min-width:900px){.banner .wrap{padding-left:max(var(--gutter),96px);padding-right:max(var(--gutter),96px)}}
+@media (min-width:900px){.banner .ascent__step h3{font-size:clamp(22px,2.1vw,34px);overflow-wrap:anywhere}}
