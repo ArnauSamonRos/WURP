@@ -2,9 +2,11 @@
   <!-- Placeholder. Substitueix per una foto real de la comunitat. -->
   <defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9C49E"/><stop offset=".6" stop-color="#B8705A"/><stop offset="1" stop-color="#6D1730"/></linearGradient></defs>
   <rect width="600" height="700" fill="url(#a)"/>
-  <path d="M0 520 L160 420 L300 480 L460 360 L600 440 L600 700 L0 700Z" fill="#561226" opacity=".7"/>
+  <path d="M0 700 V430 H80 V380 H150 V450 H230 V360 H300 V440 H380 V400 H450 V460 H520 V390 H600 V700Z" fill="#561226" opacity=".7"/>
+  <rect x="0" y="600" width="600" height="100" fill="#3A0F1A"/>
   <g fill="#2A0E15">
-    <circle cx="250" cy="430" r="16"/><path d="M232 450 h36 l6 90 h-14 l-6 80 h-14 l-4-80 h-6 l-4 80 h-14 l6-80 h-8z"/>
-    <circle cx="340" cy="424" r="16"/><path d="M322 444 h36 l8 96 h-14 l-6 80 h-14 l-4-80 h-6 l-4 80 h-14 l6-80 h-10z"/>
+    <circle cx="200" cy="440" r="16"/><path d="M182 460 h36 l6 90 h-14 l-6 60 h-14 l-4-60 h-6 l-4 60 h-14 l6-60 h-8z"/>
+    <circle cx="290" cy="432" r="16"/><path d="M272 452 h36 l8 96 h-14 l-6 62 h-14 l-4-62 h-6 l-4 62 h-14 l6-62 h-10z"/>
+    <circle cx="380" cy="442" r="16"/><path d="M362 462 h36 l6 88 h-14 l-6 60 h-14 l-4-60 h-6 l-4 60 h-14 l6-60 h-8z"/>
   </g>
 </svg>

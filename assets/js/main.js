@@ -16,7 +16,7 @@ async function initCommunity() {
       <svg class="insta__img" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(p.alt)}">
         <defs><linearGradient id="g${p.tone}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${b}"/><stop offset="1" stop-color="${a}"/></linearGradient></defs>
         <rect width="100" height="100" fill="url(#g${p.tone})"/>
-        <path d="M0 78 L28 52 L44 64 L66 34 L100 70 L100 100 L0 100 Z" fill="${a}" opacity=".7"/>
+        <path d="M0 100 V70 H12 V58 H22 V66 H30 V48 H40 V62 H52 V54 H60 V40 H70 V60 H80 V52 H90 V64 H100 V100 Z" fill="${a}" opacity=".75"/>
         <path transform="translate(44 18) scale(.16)" d="M37 0 L74 55.5 L54.8 86 L37 59 L19.2 86 L0 55.5 Z" fill="none" stroke="#F4EFEA" stroke-width="5" opacity=".8"/>
       </svg>
       <span class="insta__cap">${esc(p.caption)}</span></a></li>`;

@@ -6,7 +6,7 @@ import { $, esc, peak, openDialog, submitForm } from './ui.js';
 
 let races = [], clubs = [], map, layers = {};
 
-const dcat = km => km <= 10 ? 'short' : km <= 21.1 ? 'half' : km <= 42.2 ? 'marathon' : 'ultra';
+const dcat = km => km <= 5 ? '5k' : km <= 10 ? '10k' : km <= 21.1 ? 'half' : 'marathon';
 const monthKey = iso => iso.slice(0, 7);
 const km = n => `${String(n).replace('.', ',')} km`;
 const badge = () => `<span class="challenge-badge">${peak()}Repte</span>`;
@@ -22,7 +22,7 @@ function featured() {
       </div>
       <dl class="stats">
         <div class="stat"><dt>Distància</dt><dd>${km(r.distanceKm)}</dd></div>
-        <div class="stat"><dt>Desnivell</dt><dd>${r.elevation} m</dd></div>
+        <div class="stat"><dt>Ritme</dt><dd>${esc(r.pace)}</dd></div>
         <div class="stat"><dt>Tipus</dt><dd>${t('rtype.' + r.type)}</dd></div>
       </dl>
       ${r.meetup ? `<div class="meetup"><strong>Quedada WURP · ${esc(r.meetup.time)} · ${esc(r.meetup.place)}</strong><p>${esc(r.meetup.note || '')}</p></div>` : ''}
@@ -47,7 +47,7 @@ function renderRaces() {
         <h4 class="race__name"><span class="sr-only">${fmtDate(r.date, { day: 'numeric', month: 'long', year: 'numeric' })}: </span>${esc(r.name)} ${r.challenge ? badge() : ''}</h4>
         <p class="race__meta">${esc(r.town)}</p>
       </div>
-      <p class="race__meta">${km(r.distanceKm)} · ${t('race.elev')} ${r.elevation} m · ${t('rtype.' + r.type)}</p>
+      <p class="race__meta">${km(r.distanceKm)} · ${t('rtype.' + r.type)} · ${esc(r.pace)}</p>
       <div class="race__actions">
         <button type="button" data-locate="${r.id}">Al mapa</button>
         <a href="${esc(r.url)}" target="_blank" rel="noopener">${t('map.signup')}<span class="sr-only"> a ${esc(r.name)} (pestanya nova)</span></a>
@@ -99,7 +99,7 @@ const popClub = c => `<div class="pop">${c.partner ? `<p class="pop__badge">${pe
   <p><a href="mailto:${esc(c.contact)}">${esc(c.contact)}</a></p></div>`;
 const popRace = r => `<div class="pop">${r.challenge ? `<p class="pop__badge">${peak()}${t('map.challenge')}</p>` : ''}<h3>${esc(r.name)}</h3>
   <p>${fmtDate(r.date, { weekday: 'short', day: 'numeric', month: 'long' })} · ${esc(r.town)}</p>
-  <p>${km(r.distanceKm)} · ${t('race.elev')} ${r.elevation} m · ${t('rtype.' + r.type)}</p>
+  <p>${km(r.distanceKm)} · ${t('rtype.' + r.type)} · ${esc(r.pace)}</p>
   <p><a href="${esc(r.url)}" target="_blank" rel="noopener">${t('map.signup')} →</a></p></div>`;
 
 const markers = {};

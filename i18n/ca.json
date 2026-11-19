@@ -6,9 +6,9 @@
   "type.samarreta":"Samarretes","type.pantalo":"Pantalons","type.jaqueta":"Jaquetes","type.accessori":"Accessoris",
   "cart.title":"Cistella","cart.empty":"La cistella és buida. De moment.","cart.total":"Total","cart.checkout":"Finalitza la compra","cart.remove":"Treu","cart.added":"Afegit a la cistella","cart.demo":"Mode demo: connecta Shopify a config.js per activar el pagament.",
   "map.clubs":"Clubs","map.races":"Carreres","map.partner":"Club col·laborador","map.challenge":"Té repte associat","map.signup":"Inscripció","map.loading":"Carregant el mapa…","map.activate":"Toca per moure el mapa",
-  "race.elev":"D+","race.empty":"Cap carrera amb aquests filtres.","race.allMonths":"Tots els mesos",
-  "rtype.asfalt":"Asfalt","rtype.trail":"Trail","rtype.muntanya":"Muntanya",
-  "dcat.short":"Fins a 10K","dcat.half":"Mitja (11–21K)","dcat.marathon":"Marató (22–42K)","dcat.ultra":"Ultra (+42K)",
+  "race.empty":"Cap carrera amb aquests filtres.","race.allMonths":"Tots els mesos",
+  "rtype.social":"Social run","rtype.cursa":"Cursa","rtype.solidaria":"Solidària",
+  "dcat.5k":"Fins a 5K","dcat.10k":"6–10K","dcat.half":"Mitja","dcat.marathon":"Marató",
   "form.thanks":"Rebut. Ho revisem i et diem alguna cosa en uns dies.","form.news":"Fet. Seràs dels primers a saber-ho.","form.error":"No s'ha pogut enviar. Torna-ho a provar.",
   "challenge.left":"queden","challenge.achieved":"aconseguides"
 }
