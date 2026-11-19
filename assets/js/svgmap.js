@@ -1,3 +1,4 @@
+import { t } from './i18n.js';
 // Mapa SVG de Catalunya, sense dependències: zoom, arrossegar, pessic, teclat i marcadors HTML.
 // Projecció a partir de data-proj del SVG (generat per scripts/gen_map.py).
 export class SvgMap {
@@ -9,23 +10,23 @@ export class SvgMap {
   async load(url) {
     const txt = await (await fetch(url)).text();
     this.el.innerHTML = `<div class="smap__stage"><div class="smap__world">${txt}<div class="smap__pins"></div></div></div>
-      <div class="smap__ctrl" role="group" aria-label="Zoom del mapa">
-        <button type="button" data-z="in" aria-label="Apropa">+</button>
-        <button type="button" data-z="out" aria-label="Allunya">−</button>
-        <button type="button" data-z="fit" aria-label="Veure tota Catalunya" class="smap__fit"></button>
+      <div class="smap__ctrl" role="group" aria-label="${t('map.zoom')}">
+        <button type="button" data-z="in" aria-label="${t('map.in')}">+</button>
+        <button type="button" data-z="out" aria-label="${t('map.out')}">−</button>
+        <button type="button" data-z="fit" aria-label="${t('map.fit')}" class="smap__fit"></button>
       </div>
-      <div class="smap__card" hidden role="dialog" aria-live="polite"><button type="button" class="smap__close" aria-label="Tanca">×</button><div class="smap__cardbody"></div></div>`;
+      <div class="smap__card" hidden role="dialog" aria-live="polite"><button type="button" class="smap__close" aria-label="${t('ui.close')}">×</button><div class="smap__cardbody"></div></div>`;
     this.world = this.el.querySelector('.smap__world');
     this.pins = this.el.querySelector('.smap__pins');
     this.card = this.el.querySelector('.smap__card');
     const svg = this.world.querySelector('svg');
     const vb = svg.viewBox.baseVal; this.W = vb.width; this.H = vb.height;
     [this.lon0, this.lat0, this.K, this.S] = svg.dataset.proj.split(',').map(Number);
-    svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', 'Mapa de Catalunya per comarques');
+    svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', t('map.svg'));
     this.resize(); this.bind();
     // En pantalles tàctils: un toc activa el mapa perquè no atrapi l'scroll de la pàgina
     if (matchMedia('(pointer:coarse)').matches) {
-      const hint = Object.assign(document.createElement('button'), { type: 'button', className: 'map__hint', textContent: 'Toca per moure el mapa' });
+      const hint = Object.assign(document.createElement('button'), { type: 'button', className: 'map__hint', textContent: t('map.activate') });
       hint.addEventListener('click', () => { this.el.classList.add('is-live'); hint.remove(); });
       this.el.append(hint);
     } else this.el.classList.add('is-live');
@@ -113,7 +114,7 @@ export class SvgMap {
       g.items.forEach(i => { i.el.hidden = true; });
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'smap__pin smap__cluster'; b.textContent = g.items.length;
-      b.setAttribute('aria-label', `${g.items.length} clubs i carreres aquí. Apropa el mapa`);
+      b.setAttribute('aria-label', t('map.cluster', { n: g.items.length }));
       b.style.left = (g.x / this.W * 100) + '%'; b.style.top = (g.y / this.H * 100) + '%';
       b.addEventListener('click', e => { e.stopPropagation(); const prev = this.s; this.fit(g.items.map(i => i.m), 80); if (this.s < prev * 1.8) this.view(g.x, g.y, prev * 2); });
       this.pins.append(b);
@@ -166,7 +167,7 @@ export class SvgMap {
       this.zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.002), false);
     }, { passive: false });
     // Teclat: fletxes per moure, +/- per zoom
-    stage.tabIndex = 0; stage.setAttribute('aria-label', 'Mapa. Fes servir les fletxes per moure i + o − per fer zoom.');
+    stage.tabIndex = 0; stage.setAttribute('aria-label', t('map.keys'));
     stage.addEventListener('keydown', e => {
       const k = e.key, step = 60;
       if (k === '+' || k === '=') this.zoomAt(this.vw / 2, this.vh / 2, 1.5, true);

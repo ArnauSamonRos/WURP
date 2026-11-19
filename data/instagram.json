@@ -1,8 +1,98 @@
 [
-  {"caption":"Dijous, 19:30. Cinquanta persones a la Ciutadella.","alt":"Grup gran de corredors somrient en un parc urbà al vespre","tone":1,"url":"https://instagram.com/"},
-  {"caption":"Peça #12 dels 150 pantalons. Enhorabona, Marta.","alt":"Pantaló granat plegat sobre un banc","tone":2,"url":"https://instagram.com/"},
-  {"caption":"Coffee run amb el Poble-sec Dawn Club.","alt":"Corredors fent un cafè després d'entrenar","tone":3,"url":"https://instagram.com/"},
-  {"caption":"Nova Heavy Peak en crema.","alt":"Samarreta color crema penjada","tone":4,"url":"https://instagram.com/"},
-  {"caption":"Quedada Sant Silvestre: ens veiem a les 16:45.","alt":"Dorsal i samarreta sobre una taula","tone":5,"url":"https://instagram.com/"},
-  {"caption":"El teu ritme. La teva gent.","alt":"Corredors creuant un pas de vianants a la ciutat","tone":6,"url":"https://instagram.com/"}
+ {
+  "caption": "Dijous, 19:30. Cinquanta persones a la Ciutadella.",
+  "alt": "Grup gran de corredors somrient en un parc urbà al vespre",
+  "tone": 1,
+  "url": "https://instagram.com/",
+  "i18n": {
+   "es": {
+    "caption": "Jueves, 19:30. Cincuenta personas en la Ciutadella.",
+    "alt": "Gran grupo de corredores sonriendo en un parque urbano al atardecer"
+   },
+   "en": {
+    "caption": "Thursday, 7:30 pm. Fifty people at Ciutadella park.",
+    "alt": "Large group of smiling runners in a city park at dusk"
+   }
+  }
+ },
+ {
+  "caption": "Peça #12 dels 150 pantalons. Enhorabona, Marta.",
+  "alt": "Pantaló granat plegat sobre un banc",
+  "tone": 2,
+  "url": "https://instagram.com/",
+  "i18n": {
+   "es": {
+    "caption": "Prenda #12 de los 150 pantalones. Enhorabuena, Marta.",
+    "alt": "Pantalón granate doblado sobre un banco"
+   },
+   "en": {
+    "caption": "Piece #12 of the 150 shorts. Congrats, Marta.",
+    "alt": "Maroon shorts folded on a bench"
+   }
+  }
+ },
+ {
+  "caption": "Coffee run amb el Poble-sec Dawn Club.",
+  "alt": "Corredors fent un cafè després d'entrenar",
+  "tone": 3,
+  "url": "https://instagram.com/",
+  "i18n": {
+   "es": {
+    "caption": "Coffee run con el Poble-sec Dawn Club.",
+    "alt": "Corredores tomando un café después de entrenar"
+   },
+   "en": {
+    "caption": "Coffee run with Poble-sec Dawn Club.",
+    "alt": "Runners having coffee after training"
+   }
+  }
+ },
+ {
+  "caption": "Nova Heavy Peak en crema.",
+  "alt": "Samarreta color crema penjada",
+  "tone": 4,
+  "url": "https://instagram.com/",
+  "i18n": {
+   "es": {
+    "caption": "Nueva Heavy Peak en crema.",
+    "alt": "Camiseta color crema colgada"
+   },
+   "en": {
+    "caption": "New Heavy Peak in cream.",
+    "alt": "Cream T-shirt on a hanger"
+   }
+  }
+ },
+ {
+  "caption": "Quedada Sant Silvestre: ens veiem a les 16:45.",
+  "alt": "Dorsal i samarreta sobre una taula",
+  "tone": 5,
+  "url": "https://instagram.com/",
+  "i18n": {
+   "es": {
+    "caption": "Quedada Sant Silvestre: nos vemos a las 16:45.",
+    "alt": "Dorsal y camiseta sobre una mesa"
+   },
+   "en": {
+    "caption": "Sant Silvestre meetup: see you at 4:45 pm.",
+    "alt": "Race bib and T-shirt on a table"
+   }
+  }
+ },
+ {
+  "caption": "El teu ritme. La teva gent.",
+  "alt": "Corredors creuant un pas de vianants a la ciutat",
+  "tone": 6,
+  "url": "https://instagram.com/",
+  "i18n": {
+   "es": {
+    "caption": "Tu ritmo. Tu gente.",
+    "alt": "Corredores cruzando un paso de peatones en la ciudad"
+   },
+   "en": {
+    "caption": "Your pace. Your people.",
+    "alt": "Runners crossing a zebra crossing in the city"
+   }
+  }
+ }
 ]

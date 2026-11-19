@@ -75,7 +75,9 @@ for date, name, town, typ, dist, dplus, insc, pr, end, web, src in rows:
     }
     if r['featured']:
         r['meetup'] = {'place': 'Arc de Triomf', 'time': '16:30',
-                       'note': "Escalfem junts, anem a la sortida caminant i després brindem per l'any que ve. Porta la samarreta WURP si en tens."}
+                       'note': "Escalfem junts, anem a la sortida caminant i després brindem per l'any que ve. Porta la samarreta WURP si en tens.",
+                       'i18n': {'es': {'note': 'Calentamos juntos, vamos andando a la salida y después brindamos por el año que viene. Trae la camiseta WURP si tienes.'},
+                                'en': {'note': 'We warm up together, walk to the start and then toast to the year ahead. Wear your WURP tee if you have one.'}}}
     out.append(r)
 out.sort(key=lambda r: r['date'])
 json.dump(out, open('data/races.json', 'w'), ensure_ascii=False, indent=1)

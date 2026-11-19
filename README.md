@@ -64,3 +64,15 @@ python3 scripts/build_races.py curses.xlsx centroides.json
 `centroides.json` surt de `cat-municipis.json` (mateix repositori de cartografia). Els nuclis i barris que no són municipis
 (Empuriabrava, l'Estartit, Coma-ruga…) estan a `MANUAL` dins del script. La cursa destacada i les que tenen repte es
 marquen amb `FEATURED` i `CHALLENGE`. Les curses ja passades s'amaguen soles.
+
+## Idiomes i SEO
+- Català a `/`, castellà a `/es/` i anglès a `/en/`. `index.html` és la font: **no editis `es/` ni `en/` a mà**.
+- Després de canviar `index.html`, `i18n/html.json` o `data/races.json`, executa:
+  ```bash
+  python3 scripts/build_i18n.py
+  ```
+  Regenera les pàgines ES/EN, el bloc SEO (title, description, canonical, hreflang, Open Graph, JSON-LD amb les properes
+  40 curses com a `SportsEvent`), `sitemap.xml` i `robots.txt`.
+- Textos generats pel JS: `i18n/ca.json`, `es.json`, `en.json`. Dades traduïbles: camp `i18n` dins de cada element
+  (`products.json`, `challenges.json`, `instagram.json`).
+- Domini: canvia `site` a `assets/js/config.js` pel domini definitiu i torna a executar el script.

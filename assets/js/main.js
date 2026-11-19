@@ -1,4 +1,4 @@
-import { initI18n, t } from './i18n.js';
+import { initI18n, t, loc } from './i18n.js';
 import { CONFIG } from './config.js';
 import { load } from './data.js';
 import { $, esc, wireDialogs, submitForm } from './ui.js';
@@ -10,7 +10,7 @@ import { initBanner } from './banner.js';
 // Tons càlids per al feed (placeholder fins connectar Instagram: Behold, Elfsight o Graph API).
 const TONES = ['#6D1730,#C9876B', '#3A2A2E,#B9775C', '#8A2A45,#E2B48E', '#D9C4B0,#F4EFEA', '#561226,#9A5A48', '#2A1B1F,#7A3B3F'];
 async function initCommunity() {
-  const posts = await load('instagram');
+  const posts = (await load('instagram')).map(loc);
   $('#instaFeed').innerHTML = posts.map(p => {
     const [a, b] = TONES[(p.tone - 1) % TONES.length].split(',');
     return `<li><a href="${esc(p.url)}" target="_blank" rel="noopener">
@@ -27,7 +27,7 @@ async function initCommunity() {
   form.addEventListener('submit', async e => {
     e.preventDefault();
     const msg = $('.form-msg', form), input = $('#nlEmail');
-    if (!input.checkValidity()) { msg.textContent = 'Escriu un correu vàlid.'; input.focus(); return; }
+    if (!input.checkValidity()) { msg.textContent = t('form.email'); input.focus(); return; }
     const ok = await submitForm(form, CONFIG.forms.newsletter).catch(() => false);
     msg.textContent = ok ? t('form.news') : t('form.error');
     if (ok) form.reset();
@@ -50,6 +50,8 @@ function initReveal() {
 
 (async () => {
   $('#year').textContent = new Date().getFullYear();
+  // En canviar d'idioma, conserva la secció o la fitxa on ets
+  document.querySelectorAll('.langs a').forEach(l => l.addEventListener('click', () => { if (location.hash) l.href = l.href.split('#')[0] + location.hash; }));
   initNav(); wireDialogs(); initBanner($('#banner')); initReveal();
   await initI18n();
   const results = await Promise.allSettled([initShop(), initExplore(), initChallenges(), initCommunity()]);

@@ -1,12 +1,508 @@
 [
-  {"id":"tee-base","handle":"samarreta-base","title":"Samarreta Base","line":"accessible","type":"samarreta","garment":"tee","color":"#6D1730","colorName":"Granat","price":24,"sizes":["XS","S","M","L","XL"],"distances":["10k","mitja"],"description":"Teixit tècnic lleuger que evacua la suor. Costures planes. La que agafes cada dia.","features":["Polièster reciclat 140 g/m²","Costures planes antifricció","Detall reflectant al clatell"],"shopifyVariantIds":{}},
-  {"id":"tank-base","handle":"tirants-base","title":"Tirants Base","line":"accessible","type":"samarreta","garment":"tank","color":"#1A1A1A","colorName":"Negre","price":19,"sizes":["XS","S","M","L","XL"],"distances":["10k"],"description":"Mínim pes, màxima ventilació. Per a sèries i dies de calor.","features":["Malla perforada als laterals","120 g/m²","Tall regular"],"shopifyVariantIds":{}},
-  {"id":"short-base","handle":"pantalo-curt-base","title":"Pantaló curt Base 5\"","line":"accessible","type":"pantalo","garment":"shorts","color":"#1A1A1A","colorName":"Negre","price":29,"sizes":["XS","S","M","L","XL"],"distances":["10k","mitja"],"description":"Malla interior, butxaca per a la clau i un tall que no molesta.","features":["Interior de malla","Butxaca posterior amb cremallera","Cintura elàstica amb cordó"],"shopifyVariantIds":{}},
-  {"id":"tight-base","handle":"malles-base","title":"Malles llargues Base","line":"accessible","type":"pantalo","garment":"tights","color":"#3A2A2E","colorName":"Antracita","price":34,"sizes":["XS","S","M","L","XL"],"distances":["mitja","marato"],"description":"Compressió suau per als matins freds. Butxaques laterals per al mòbil.","features":["Butxaques laterals","Teixit amb lleugera compressió","Cintura alta"],"shopifyVariantIds":{}},
-  {"id":"tee-heavy","handle":"samarreta-heavy","title":"Samarreta Heavy Peak","line":"premium","type":"samarreta","garment":"tee","color":"#F4EFEA","colorName":"Crema","price":54,"sizes":["XS","S","M","L","XL"],"distances":["mitja","marato"],"description":"Punt heavy de tacte sec. Cau bé, dura anys. Per entrenar i per després.","features":["Merino + Tencel 190 g/m²","Costures termosegellades","Logo brodat to sobre to"],"shopifyVariantIds":{}},
-  {"id":"jacket-premium","handle":"jaqueta-night-run","title":"Jaqueta Night Run","line":"premium","type":"jaqueta","garment":"jacket","color":"#6D1730","colorName":"Granat","price":129,"sizes":["XS","S","M","L","XL"],"distances":["mitja","marato"],"description":"Tallavents lleuger que es plega a la butxaca. Per a les sortides de vespre a l'hivern.","features":["Panells reflectants 360°","Es plega a la butxaca del pit","Repel·lent a l'aigua"],"shopifyVariantIds":{}},
-  {"id":"hoodie-premium","handle":"dessuadora-heavy","title":"Dessuadora Heavy","line":"premium","type":"jaqueta","garment":"hoodie","color":"#1A1A1A","colorName":"Negre","price":89,"sizes":["XS","S","M","L","XL"],"distances":["10k","mitja","marato"],"description":"Cotó orgànic de 420 g/m². Per escalfar abans i recuperar després.","features":["Cotó orgànic 420 g/m²","Interior perxat","Fabricada a Portugal"],"shopifyVariantIds":{}},
-  {"id":"short-premium","handle":"pantalo-curt-split","title":"Pantaló Split 3\"","line":"premium","type":"pantalo","garment":"shorts","color":"#6D1730","colorName":"Granat","price":64,"sizes":["XS","S","M","L","XL"],"distances":["10k","mitja","marato"],"description":"Obertura lateral, cinturó per a gels. Per al dia de la cursa.","features":["Cinturó amb 5 butxaques per a gels","Teixit amb elastà 4 direccions","Interior sense costures"],"shopifyVariantIds":{}},
-  {"id":"cap-base","handle":"gorra-base","title":"Gorra Base","line":"accessible","type":"accessori","garment":"cap","color":"#6D1730","colorName":"Granat","price":18,"sizes":["Única"],"distances":["10k","mitja","marato"],"description":"Lleugera, plegable, s'asseca de pressa.","features":["Visera flexible","Tira ajustable","Pes: 55 g"],"shopifyVariantIds":{}},
-  {"id":"socks-premium","handle":"mitjons-peak","title":"Mitjons Peak (2 parells)","line":"premium","type":"accessori","garment":"socks","color":"#F4EFEA","colorName":"Crema","price":22,"sizes":["35-38","39-42","43-46"],"distances":["mitja","marato"],"description":"Merino amb zones de coixí on toca. Zero butllofes al km 30.","features":["Merino 60%","Coixí a taló i metatars","Costura de punta plana"],"shopifyVariantIds":{}}
+ {
+  "id": "tee-base",
+  "handle": "samarreta-base",
+  "title": "Samarreta Base",
+  "line": "accessible",
+  "type": "samarreta",
+  "garment": "tee",
+  "color": "#6D1730",
+  "colorName": "Granat",
+  "price": 24,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "10k",
+   "mitja"
+  ],
+  "description": "Teixit tècnic lleuger que evacua la suor. Costures planes. La que agafes cada dia.",
+  "features": [
+   "Polièster reciclat 140 g/m²",
+   "Costures planes antifricció",
+   "Detall reflectant al clatell"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Camiseta Base",
+    "colorName": "Granate",
+    "description": "Tejido técnico ligero que evacúa el sudor. Costuras planas. La que coges cada día.",
+    "features": [
+     "Poliéster reciclado 140 g/m²",
+     "Costuras planas antirozaduras",
+     "Detalle reflectante en la nuca"
+    ]
+   },
+   "en": {
+    "title": "Base Tee",
+    "colorName": "Maroon",
+    "description": "Lightweight technical fabric that wicks sweat. Flat seams. The one you grab every day.",
+    "features": [
+     "Recycled polyester 140 g/m²",
+     "Anti-chafe flat seams",
+     "Reflective detail at the neck"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tank-base",
+  "handle": "tirants-base",
+  "title": "Tirants Base",
+  "line": "accessible",
+  "type": "samarreta",
+  "garment": "tank",
+  "color": "#1A1A1A",
+  "colorName": "Negre",
+  "price": 19,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "10k"
+  ],
+  "description": "Mínim pes, màxima ventilació. Per a sèries i dies de calor.",
+  "features": [
+   "Malla perforada als laterals",
+   "120 g/m²",
+   "Tall regular"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Tirantes Base",
+    "colorName": "Negro",
+    "description": "Mínimo peso, máxima ventilación. Para series y días de calor.",
+    "features": [
+     "Malla perforada en los laterales",
+     "120 g/m²",
+     "Corte regular"
+    ]
+   },
+   "en": {
+    "title": "Base Tank",
+    "colorName": "Black",
+    "description": "Minimum weight, maximum airflow. For intervals and hot days.",
+    "features": [
+     "Perforated side mesh",
+     "120 g/m²",
+     "Regular fit"
+    ]
+   }
+  }
+ },
+ {
+  "id": "short-base",
+  "handle": "pantalo-curt-base",
+  "title": "Pantaló curt Base 5\"",
+  "line": "accessible",
+  "type": "pantalo",
+  "garment": "shorts",
+  "color": "#1A1A1A",
+  "colorName": "Negre",
+  "price": 29,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "10k",
+   "mitja"
+  ],
+  "description": "Malla interior, butxaca per a la clau i un tall que no molesta.",
+  "features": [
+   "Interior de malla",
+   "Butxaca posterior amb cremallera",
+   "Cintura elàstica amb cordó"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Pantalón corto Base 5\"",
+    "colorName": "Negro",
+    "description": "Malla interior, bolsillo para la llave y un corte que no molesta.",
+    "features": [
+     "Interior de malla",
+     "Bolsillo trasero con cremallera",
+     "Cintura elástica con cordón"
+    ]
+   },
+   "en": {
+    "title": "Base Short 5\"",
+    "colorName": "Black",
+    "description": "Inner brief, a key pocket and a cut that stays out of the way.",
+    "features": [
+     "Mesh inner brief",
+     "Zipped back pocket",
+     "Elastic drawcord waist"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tight-base",
+  "handle": "malles-base",
+  "title": "Malles llargues Base",
+  "line": "accessible",
+  "type": "pantalo",
+  "garment": "tights",
+  "color": "#3A2A2E",
+  "colorName": "Antracita",
+  "price": 34,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "mitja",
+   "marato"
+  ],
+  "description": "Compressió suau per als matins freds. Butxaques laterals per al mòbil.",
+  "features": [
+   "Butxaques laterals",
+   "Teixit amb lleugera compressió",
+   "Cintura alta"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Mallas largas Base",
+    "colorName": "Antracita",
+    "description": "Compresión suave para las mañanas frías. Bolsillos laterales para el móvil.",
+    "features": [
+     "Bolsillos laterales",
+     "Tejido con ligera compresión",
+     "Cintura alta"
+    ]
+   },
+   "en": {
+    "title": "Base Long Tights",
+    "colorName": "Charcoal",
+    "description": "Light compression for cold mornings. Side pockets for your phone.",
+    "features": [
+     "Side pockets",
+     "Light-compression fabric",
+     "High waist"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tee-heavy",
+  "handle": "samarreta-heavy",
+  "title": "Samarreta Heavy Peak",
+  "line": "premium",
+  "type": "samarreta",
+  "garment": "tee",
+  "color": "#F4EFEA",
+  "colorName": "Crema",
+  "price": 54,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "mitja",
+   "marato"
+  ],
+  "description": "Punt heavy de tacte sec. Cau bé, dura anys. Per entrenar i per després.",
+  "features": [
+   "Merino + Tencel 190 g/m²",
+   "Costures termosegellades",
+   "Logo brodat to sobre to"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Camiseta Heavy Peak",
+    "colorName": "Crema",
+    "description": "Punto heavy de tacto seco. Cae bien, dura años. Para entrenar y para después.",
+    "features": [
+     "Merino + Tencel 190 g/m²",
+     "Costuras termoselladas",
+     "Logo bordado tono sobre tono"
+    ]
+   },
+   "en": {
+    "title": "Heavy Peak Tee",
+    "colorName": "Cream",
+    "description": "Heavyweight knit with a dry hand. Drapes well, lasts for years. For training and after.",
+    "features": [
+     "Merino + Tencel 190 g/m²",
+     "Heat-sealed seams",
+     "Tonal embroidered logo"
+    ]
+   }
+  }
+ },
+ {
+  "id": "jacket-premium",
+  "handle": "jaqueta-night-run",
+  "title": "Jaqueta Night Run",
+  "line": "premium",
+  "type": "jaqueta",
+  "garment": "jacket",
+  "color": "#6D1730",
+  "colorName": "Granat",
+  "price": 129,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "mitja",
+   "marato"
+  ],
+  "description": "Tallavents lleuger que es plega a la butxaca. Per a les sortides de vespre a l'hivern.",
+  "features": [
+   "Panells reflectants 360°",
+   "Es plega a la butxaca del pit",
+   "Repel·lent a l'aigua"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Chaqueta Night Run",
+    "colorName": "Granate",
+    "description": "Cortavientos ligero que se pliega en el bolsillo. Para las salidas de noche en invierno.",
+    "features": [
+     "Paneles reflectantes 360°",
+     "Se pliega en el bolsillo del pecho",
+     "Repelente al agua"
+    ]
+   },
+   "en": {
+    "title": "Night Run Jacket",
+    "colorName": "Maroon",
+    "description": "Lightweight windbreaker that packs into its pocket. For winter evening runs.",
+    "features": [
+     "360° reflective panels",
+     "Packs into chest pocket",
+     "Water-repellent"
+    ]
+   }
+  }
+ },
+ {
+  "id": "hoodie-premium",
+  "handle": "dessuadora-heavy",
+  "title": "Dessuadora Heavy",
+  "line": "premium",
+  "type": "jaqueta",
+  "garment": "hoodie",
+  "color": "#1A1A1A",
+  "colorName": "Negre",
+  "price": 89,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "10k",
+   "mitja",
+   "marato"
+  ],
+  "description": "Cotó orgànic de 420 g/m². Per escalfar abans i recuperar després.",
+  "features": [
+   "Cotó orgànic 420 g/m²",
+   "Interior perxat",
+   "Fabricada a Portugal"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Sudadera Heavy",
+    "colorName": "Negro",
+    "description": "Algodón orgánico de 420 g/m². Para calentar antes y recuperar después.",
+    "features": [
+     "Algodón orgánico 420 g/m²",
+     "Interior perchado",
+     "Fabricada en Portugal"
+    ]
+   },
+   "en": {
+    "title": "Heavy Hoodie",
+    "colorName": "Black",
+    "description": "420 g/m² organic cotton. To warm up before and recover after.",
+    "features": [
+     "Organic cotton 420 g/m²",
+     "Brushed interior",
+     "Made in Portugal"
+    ]
+   }
+  }
+ },
+ {
+  "id": "short-premium",
+  "handle": "pantalo-curt-split",
+  "title": "Pantaló Split 3\"",
+  "line": "premium",
+  "type": "pantalo",
+  "garment": "shorts",
+  "color": "#6D1730",
+  "colorName": "Granat",
+  "price": 64,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "distances": [
+   "10k",
+   "mitja",
+   "marato"
+  ],
+  "description": "Obertura lateral, cinturó per a gels. Per al dia de la cursa.",
+  "features": [
+   "Cinturó amb 5 butxaques per a gels",
+   "Teixit amb elastà 4 direccions",
+   "Interior sense costures"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Pantalón Split 3\"",
+    "colorName": "Granate",
+    "description": "Abertura lateral, cinturón para geles. Para el día de la carrera.",
+    "features": [
+     "Cinturón con 5 bolsillos para geles",
+     "Tejido elástico en 4 direcciones",
+     "Interior sin costuras"
+    ]
+   },
+   "en": {
+    "title": "Split Short 3\"",
+    "colorName": "Maroon",
+    "description": "Side splits and a gel belt. Built for race day.",
+    "features": [
+     "Belt with 5 gel pockets",
+     "4-way stretch fabric",
+     "Seamless inner"
+    ]
+   }
+  }
+ },
+ {
+  "id": "cap-base",
+  "handle": "gorra-base",
+  "title": "Gorra Base",
+  "line": "accessible",
+  "type": "accessori",
+  "garment": "cap",
+  "color": "#6D1730",
+  "colorName": "Granat",
+  "price": 18,
+  "sizes": [
+   "Única"
+  ],
+  "distances": [
+   "10k",
+   "mitja",
+   "marato"
+  ],
+  "description": "Lleugera, plegable, s'asseca de pressa.",
+  "features": [
+   "Visera flexible",
+   "Tira ajustable",
+   "Pes: 55 g"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Gorra Base",
+    "colorName": "Granate",
+    "description": "Ligera, plegable, se seca rápido.",
+    "features": [
+     "Visera flexible",
+     "Tira ajustable",
+     "Peso: 55 g"
+    ]
+   },
+   "en": {
+    "title": "Base Cap",
+    "colorName": "Maroon",
+    "description": "Light, packable, quick-drying.",
+    "features": [
+     "Flexible peak",
+     "Adjustable strap",
+     "Weight: 55 g"
+    ]
+   }
+  }
+ },
+ {
+  "id": "socks-premium",
+  "handle": "mitjons-peak",
+  "title": "Mitjons Peak (2 parells)",
+  "line": "premium",
+  "type": "accessori",
+  "garment": "socks",
+  "color": "#F4EFEA",
+  "colorName": "Crema",
+  "price": 22,
+  "sizes": [
+   "35-38",
+   "39-42",
+   "43-46"
+  ],
+  "distances": [
+   "mitja",
+   "marato"
+  ],
+  "description": "Merino amb zones de coixí on toca. Zero butllofes al km 30.",
+  "features": [
+   "Merino 60%",
+   "Coixí a taló i metatars",
+   "Costura de punta plana"
+  ],
+  "shopifyVariantIds": {},
+  "i18n": {
+   "es": {
+    "title": "Calcetines Peak (2 pares)",
+    "colorName": "Crema",
+    "description": "Merino con acolchado donde toca. Cero ampollas en el km 30.",
+    "features": [
+     "Merino 60%",
+     "Acolchado en talón y metatarso",
+     "Costura plana en la puntera"
+    ]
+   },
+   "en": {
+    "title": "Peak Socks (2 pairs)",
+    "colorName": "Cream",
+    "description": "Merino with cushioning where it counts. Zero blisters at km 30.",
+    "features": [
+     "60% merino",
+     "Heel and forefoot cushioning",
+     "Flat toe seam"
+    ]
+   }
+  }
+ }
 ]

@@ -1,21 +1,21 @@
 // Carreres i clubs: carrera del mes, mapa SVG de Catalunya (càrrega diferida), llistes i formulari.
 import { load } from './data.js';
-import { CONFIG } from './config.js';
-import { t, fmtDate } from './i18n.js';
+import { CONFIG, ROOT } from './config.js';
+import { t, fmtDate, loc } from './i18n.js';
 import { $, esc, peak, openDialog, submitForm, toast } from './ui.js';
 import { SvgMap } from './svgmap.js';
 
 let races = [], clubs = [], map, mapC;
 
 const monthKey = iso => iso.slice(0, 7);
-const kmLabel = n => n === 42.2 || n === 42.195 ? 'Marató' : n === 21.1 || n === 21.0975 ? 'Mitja' : n < 1 ? `${Math.round(n * 1000)} m` : `${String(+n.toFixed(1)).replace('.', ',')}K`;
-const badge = () => `<span class="challenge-badge">${peak()}Repte WURP</span>`;
-const RTYPE = { asfalt: 'Asfalt', trail: 'Trail', cros: 'Cros', multi: 'Multiesport' };
+const kmLabel = n => n === 42.2 || n === 42.195 ? t('dist.marato') : n === 21.1 || n === 21.0975 ? t('dist.mitja') : n < 1 ? `${Math.round(n * 1000)} m` : `${String(+n.toFixed(1)).replace('.', ',')}K`;
+const badge = () => `<span class="challenge-badge">${peak()}${t('race.challenge')}</span>`;
+const RTYPE = new Proxy({}, { get: (_, k) => t('rtype.' + k) });
 const inDcat = (k, c) => c === '5k' ? k <= 5 : c === '10k' ? k > 5 && k <= 10 : c === 'half' ? k > 10 && k <= 21.1 : c === 'marathon' ? k > 21.1 && k <= 42.2 : k > 42.2;
 const strip = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const TODAY = new Date(new Date().toDateString());
 const daysTo = iso => Math.round((new Date(iso + 'T00:00:00') - TODAY) / 864e5);
-const countdown = iso => { const d = daysTo(iso); return d < 0 ? 'Ja s\'ha fet' : d === 0 ? 'Avui' : d === 1 ? 'Demà' : d < 60 ? `Falten ${d} dies` : `D'aquí ${Math.round(d / 30)} mesos`; };
+const countdown = iso => { const d = daysTo(iso); return d < 0 ? t('cd.past') : d === 0 ? t('cd.today') : d === 1 ? t('cd.tomorrow') : d < 60 ? t('cd.days', { n: d }) : t('cd.months', { n: Math.round(d / 30) }); };
 const cap = s => s[0].toUpperCase() + s.slice(1);
 
 function regPill(r) {
@@ -26,20 +26,20 @@ function regPill(r) {
 function featured() {
   const r = races.find(x => x.featured) || races.find(x => x.type === 'asfalt'); if (!r) return;
   $('#featuredRace').innerHTML = `
-    <div class="featured-race__label">${peak()}<p id="featured-title">Carrera WURP<br>del mes</p><span class="featured-race__count">${countdown(r.date)}</span></div>
+    <div class="featured-race__label">${peak()}<p id="featured-title">${t('race.featured')}</p><span class="featured-race__count">${countdown(r.date)}</span></div>
     <div class="featured-race__body">
       <div>
         <p class="eyebrow" style="margin-bottom:10px">${cap(fmtDate(r.date, { weekday: 'long', day: 'numeric', month: 'long' }))} · ${esc(r.town)}</p>
         <h3>${esc(r.name)}</h3>
       </div>
       <dl class="stats">
-        <div class="stat"><dt>Distàncies</dt><dd>${r.distances.map(kmLabel).join(' · ') || '—'}</dd></div>
-        <div class="stat"><dt>Tipus</dt><dd>${RTYPE[r.type]}</dd></div>
+        <div class="stat"><dt>${t('race.distances')}</dt><dd>${r.distances.map(kmLabel).join(' · ') || '—'}</dd></div>
+        <div class="stat"><dt>${t('race.type')}</dt><dd>${RTYPE[r.type]}</dd></div>
       </dl>
-      ${r.meetup ? `<div class="meetup"><strong>Quedada WURP · ${esc(r.meetup.time)} · ${esc(r.meetup.place)}</strong><p>${esc(r.meetup.note || '')}</p></div>` : ''}
+      ${r.meetup ? `<div class="meetup"><strong>${t('race.meetup')} · ${esc(r.meetup.time)} · ${esc(r.meetup.place)}</strong><p>${esc(r.meetup.note || '')}</p></div>` : ''}
       <div class="featured-race__ctas">
-        <button class="btn" type="button" data-race="${r.id}">Veure la cursa</button>
-        <a class="btn btn--outline" href="${esc(r.url)}" target="_blank" rel="noopener">Inscripció<span class="sr-only"> (pestanya nova)</span></a>
+        <button class="btn" type="button" data-race="${r.id}">${t('race.see')}</button>
+        <a class="btn btn--outline" href="${esc(r.url)}" target="_blank" rel="noopener">${t('map.signup')}<span class="sr-only"> (${t('ui.newTab')})</span></a>
       </div>
     </div>`;
 }
@@ -57,16 +57,16 @@ function filteredRaces() {
 function raceCard(r) {
   const d = new Date(r.date + 'T12:00:00');
   return `<li class="rc rc--${r.type}${r.featured ? ' rc--featured' : ''}">
-    <button type="button" class="rc__hit" data-race="${r.id}" aria-label="${esc(r.name)}, ${fmtDate(r.date, { day: 'numeric', month: 'long' })}, ${esc(r.town)}. Veure la fitxa"></button>
+    <button type="button" class="rc__hit" data-race="${r.id}" aria-label="${esc(r.name)}, ${fmtDate(r.date, { day: 'numeric', month: 'long' })}, ${esc(r.town)}. ${t('race.openSheet')}"></button>
     <div class="rc__top">
       <div class="rc__date" aria-hidden="true"><span class="rc__day">${d.getDate()}</span><span class="rc__wd">${fmtDate(r.date, { weekday: 'short' }).replace('.', '')}<br>${fmtDate(r.date, { month: 'short' }).replace('.', '')}</span></div>
       <div class="rc__flags"><span class="rc__type">${RTYPE[r.type]}</span><span class="rc__count">${countdown(r.date)}</span></div>
     </div>
     <h4 class="rc__name">${esc(r.name)}</h4>
     <p class="rc__town"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2" fill="currentColor"/></svg>${esc(r.town)}</p>
-    ${r.distances.length ? `<ul class="rc__dist" aria-label="Distàncies">${r.distances.slice(0, 5).map(k => `<li>${kmLabel(k)}</li>`).join('')}${r.distances.length > 5 ? `<li>+${r.distances.length - 5}</li>` : ''}</ul>` : ''}
+    ${r.distances.length ? `<ul class="rc__dist" aria-label="${t('race.distances')}">${r.distances.slice(0, 5).map(k => `<li>${kmLabel(k)}</li>`).join('')}${r.distances.length > 5 ? `<li>+${r.distances.length - 5}</li>` : ''}</ul>` : ''}
     <div class="rc__foot">
-      ${r.challenge ? badge() : ''}${r.featured ? '<span class="rpill rpill--wurp">Quedada WURP</span>' : ''}${regPill(r)}
+      ${r.challenge ? badge() : ''}${r.featured ? `<span class="rpill rpill--wurp">${t('race.meetup')}</span>` : ''}${regPill(r)}
       ${r.elevation ? `<span class="rc__meta">D+ ${esc(r.elevation)}</span>` : ''}${r.price ? `<span class="rc__meta">${esc(r.price)}</span>` : ''}
       <span class="rc__arrow" aria-hidden="true">→</span>
     </div>
@@ -81,13 +81,13 @@ function renderRaces() {
   shown.forEach(r => (groups[monthKey(r.date)] ??= []).push(r));
   $('#raceList').innerHTML = shown.length ? Object.entries(groups).map(([m, rs]) => `
     <section class="rgroup" aria-label="${cap(fmtDate(m + '-01', { month: 'long', year: 'numeric' }))}">
-      <h4 class="rgroup__h"><span>${cap(fmtDate(m + '-01', { month: 'long' }))}</span> <small>${m.slice(0, 4)}</small><em>${list.filter(r => monthKey(r.date) === m).length} curses</em></h4>
+      <h4 class="rgroup__h"><span>${cap(fmtDate(m + '-01', { month: 'long' }))}</span> <small>${m.slice(0, 4)}</small><em>${t('race.count', { n: list.filter(r => monthKey(r.date) === m).length })}</em></h4>
       <ul class="rgrid">${rs.map(raceCard).join('')}</ul>
-    </section>`).join('') : `<p class="empty">Cap cursa amb aquests filtres. Prova amb un altre mes o distància.</p>`;
-  $('#raceCount').textContent = `${list.length} curses`;
+    </section>`).join('') : `<p class="empty">${t('race.empty')}</p>`;
+  $('#raceCount').textContent = t('race.count', { n: list.length });
   const more = $('#raceMore');
   more.hidden = list.length <= raceLimit;
-  more.textContent = `Veure'n més (${list.length - raceLimit} restants)`;
+  more.textContent = t('race.more', { n: list.length - raceLimit });
   if (map) drawRaces(list);
 }
 
@@ -95,7 +95,7 @@ function renderRaces() {
 let mapProj;
 async function proj() {
   if (mapProj) return mapProj;
-  const txt = await (await fetch(CONFIG.map.svg)).text();
+  const txt = await (await fetch(ROOT + CONFIG.map.svg)).text();
   const m = txt.match(/viewBox="0 0 (\d+) (\d+)" data-proj="([^"]+)"/);
   const [lon0, lat0, K, S] = m[3].split(',').map(Number);
   return (mapProj = { W: +m[1], H: +m[2], lon0, lat0, K, S });
@@ -116,7 +116,7 @@ async function openRace(id) {
   const when = r.endDate ? `${fmtDate(r.date, { day: 'numeric', month: 'long' })} – ${fmtDate(r.endDate, { day: 'numeric', month: 'long', year: 'numeric' })}` : cap(fmtDate(r.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
   $('#raceModalBody').innerHTML = `
     <header class="rm__hero rm__hero--${r.type}">
-      <button class="modal__close" data-close aria-label="Tanca la fitxa">×</button>
+      <button class="modal__close" data-close aria-label="${t('ui.closeSheet')}">×</button>
       <div class="rm__hero-in">
         <div class="rm__date" aria-hidden="true"><span>${new Date(r.date + 'T12:00:00').getDate()}</span>${fmtDate(r.date, { month: 'short' }).replace('.', '')}</div>
         <div>
@@ -129,30 +129,30 @@ async function openRace(id) {
     </header>
     <div class="rm__body">
       <div class="rm__main">
-        ${r.distances.length ? `<h3 class="rm__h">Distàncies</h3><ul class="rm__dist">${r.distances.map(k => `<li><strong>${kmLabel(k)}</strong>${k >= 1 && !['Mitja', 'Marató'].includes(kmLabel(k)) ? '' : ''}</li>`).join('')}</ul>` : ''}
+        ${r.distances.length ? `<h3 class="rm__h">${t('race.distances')}</h3><ul class="rm__dist">${r.distances.map(k => `<li><strong>${kmLabel(k)}</strong>${k >= 1 && !['Mitja', 'Marató'].includes(kmLabel(k)) ? '' : ''}</li>`).join('')}</ul>` : ''}
         <dl class="rm__stats">
-          <div><dt>Data</dt><dd>${fmtDate(r.date, { day: 'numeric', month: 'short' })}</dd></div>
-          <div><dt>Tipus</dt><dd>${RTYPE[r.type]}</dd></div>
-          <div><dt>Desnivell</dt><dd>${r.elevation ? esc(r.elevation) : '—'}</dd></div>
-          <div><dt>Preu</dt><dd>${r.price ? esc(r.price) : 'Consulta la web'}</dd></div>
+          <div><dt>${t('race.date')}</dt><dd>${fmtDate(r.date, { day: 'numeric', month: 'short' })}</dd></div>
+          <div><dt>${t('race.type')}</dt><dd>${RTYPE[r.type]}</dd></div>
+          <div><dt>${t('race.elev')}</dt><dd>${r.elevation ? esc(r.elevation) : '—'}</dd></div>
+          <div><dt>${t('race.price')}</dt><dd>${r.price ? esc(r.price) : t('race.checkWeb')}</dd></div>
         </dl>
         ${r.registration ? `<p class="rm__reg">${regPill(r)}</p>` : ''}
-        ${r.challenge ? `<div class="rm__note">${peak()}<div><strong>Té un repte WURP associat.</strong> Corre-la i suma per aconseguir la peça exclusiva. <a href="#reptes" data-close>Veure el repte</a></div></div>` : ''}
-        ${r.meetup ? `<div class="rm__note rm__note--meet"><div><strong>Quedada WURP · ${esc(r.meetup.time)} · ${esc(r.meetup.place)}</strong><br>${esc(r.meetup.note)}</div></div>` : ''}
+        ${r.challenge ? `<div class="rm__note">${peak()}<div><strong>${t('race.hasChallenge')}</strong> ${t('race.challengeText')} <a href="#reptes" data-close>${t('race.seeChallenge')}</a></div></div>` : ''}
+        ${r.meetup ? `<div class="rm__note rm__note--meet"><div><strong>${t('race.meetup')} · ${esc(r.meetup.time)} · ${esc(r.meetup.place)}</strong><br>${esc(r.meetup.note)}</div></div>` : ''}
         <div class="rm__ctas">
-          <a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">${r.registration?.status === 'soldout' ? 'Web oficial' : 'Web oficial i inscripció'}<span class="sr-only"> (pestanya nova)</span></a>
-          <a class="btn btn--outline" href="${icsFor(r)}" download="${r.id}.ics">Afegeix al calendari</a>
-          <button class="btn btn--outline" type="button" data-share="${r.id}">Comparteix</button>
+          <a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">${r.registration?.status === 'soldout' ? t('race.web') : t('race.webSignup')}<span class="sr-only"> (${t('ui.newTab')})</span></a>
+          <a class="btn btn--outline" href="${icsFor(r)}" download="${r.id}.ics">${t('race.calendar')}</a>
+          <button class="btn btn--outline" type="button" data-share="${r.id}">${t('race.share')}</button>
         </div>
       </div>
       <aside class="rm__where">
-        <h3 class="rm__h">On és</h3>
-        ${pos ? `<div class="rm__mini"><img src="${CONFIG.map.svg}" alt="" width="1000" height="996"><span class="rm__dot" style="left:${pos.x}%;top:${pos.y}%"></span></div>` : ''}
+        <h3 class="rm__h">${t('race.where')}</h3>
+        ${pos ? `<div class="rm__mini"><img src="${ROOT + CONFIG.map.svg}" alt="" width="1000" height="996"><span class="rm__dot" style="left:${pos.x}%;top:${pos.y}%"></span></div>` : ''}
         <p class="rm__town">${esc(r.town)}</p>
-        <button type="button" class="link-arrow" data-locate="${r.id}" data-close>Veure al mapa</button>
+        <button type="button" class="link-arrow" data-locate="${r.id}" data-close>${t('race.onMap')}</button>
       </aside>
     </div>
-    <p class="rm__src">Dades recollides de fonts públiques. Confirma horaris i preus a la web oficial.</p>`;
+    <p class="rm__src">${t('race.source')}</p>`;
   const dlg = $('#raceModal');
   if (!dlg.open) openDialog(dlg);
   history.replaceState(null, '', '#cursa=' + r.id);
@@ -163,11 +163,11 @@ async function share(id) {
   const url = location.href.split('#')[0] + '#cursa=' + id;
   try {
     if (navigator.share) await navigator.share({ title: r.name, text: `${r.name} · ${fmtDate(r.date, { day: 'numeric', month: 'long' })}`, url });
-    else { await navigator.clipboard.writeText(url); toast('Enllaç copiat'); }
+    else { await navigator.clipboard.writeText(url); toast(t('ui.copied')); }
   } catch {}
 }
 
-const CLUB_TYPE = { social: 'Social', marca: 'Marca / botiga', federat: 'Federat' };
+const CLUB_TYPE = new Proxy({}, { get: (_, k) => t('ctype.' + k) });
 let showAllClubs = false;
 const PAGE = 9;
 
@@ -183,14 +183,14 @@ function clubCard(c) {
       <h4>${esc(c.name)}</h4>
       ${c.description ? `<p>${esc(c.description)}</p>` : ''}
       <dl>
-        <dt>Municipi</dt><dd>${esc(c.town)}</dd>
-        ${c.days && c.days !== 'Per confirmar' ? `<dt>Quan i on</dt><dd>${esc(c.days)}</dd>` : ''}
-        ${c.cost && c.cost !== 'Per confirmar' ? `<dt>Cost</dt><dd>${esc(c.cost)}</dd>` : ''}
-        ${c.attendance ? `<dt>Grup</dt><dd>${esc(c.attendance)}</dd>` : ''}
+        <dt>${t('club.town')}</dt><dd>${esc(c.town)}</dd>
+        ${c.days && c.days !== 'Per confirmar' ? `<dt>${t('club.when')}</dt><dd>${esc(c.days)}</dd>` : ''}
+        ${c.cost && c.cost !== 'Per confirmar' ? `<dt>${t('club.cost')}</dt><dd>${esc(c.cost)}</dd>` : ''}
+        ${c.attendance ? `<dt>${t('club.group')}</dt><dd>${esc(c.attendance)}</dd>` : ''}
       </dl>
       <div class="race__actions">
-        <button type="button" data-locate="${c.id}">Al mapa</button>
-        ${c.source ? `<a href="${esc(c.source)}" target="_blank" rel="noopener">Més info<span class="sr-only"> sobre ${esc(c.name)} (pestanya nova)</span></a>` : ''}
+        <button type="button" data-locate="${c.id}">${t('club.onMap')}</button>
+        ${c.source ? `<a href="${esc(c.source)}" target="_blank" rel="noopener">${t('club.more')}<span class="sr-only"> · ${esc(c.name)} (${t('ui.newTab')})</span></a>` : ''}
       </div>
     </li>`;
 }
@@ -198,11 +198,11 @@ function clubCard(c) {
 function renderClubs() {
   const list = filteredClubs().sort((a, b) => b.partner - a.partner || a.name.localeCompare(b.name, 'ca'));
   const shown = showAllClubs ? list : list.slice(0, PAGE);
-  $('#clubList').innerHTML = shown.length ? shown.map(clubCard).join('') : '<li class="empty">Cap club amb aquests filtres.</li>';
+  $('#clubList').innerHTML = shown.length ? shown.map(clubCard).join('') : `<li class="empty">${t('club.empty')}</li>`;
   const more = $('#clubMore');
   more.hidden = list.length <= PAGE || showAllClubs;
-  more.textContent = `Veure tots els clubs (${list.length})`;
-  $('#clubStatus').textContent = `${list.length} clubs`;
+  more.textContent = t('club.all', { n: list.length });
+  $('#clubStatus').textContent = t('club.count', { n: list.length });
   if (mapC) drawClubs(list);
 }
 
@@ -223,33 +223,33 @@ function fillMonths() {
 const popClub = c => `<div class="pop">${c.partner ? `<p class="pop__badge">${peak()}${t('map.partner')}</p>` : ''}<p class="pop__k" style="margin-top:0">${CLUB_TYPE[c.type]} · ${esc(c.town)}</p><h3>${esc(c.name)}</h3>
   ${c.days && c.days !== 'Per confirmar' ? `<p>${esc(c.days)}</p>` : ''}
   ${c.cost && c.cost !== 'Per confirmar' ? `<p>${esc(c.cost)}</p>` : ''}
-  ${c.approx ? '<p class="pop__k">Ubicació aproximada</p>' : ''}
-  ${c.source ? `<p><a href="${esc(c.source)}" target="_blank" rel="noopener">Més info →</a></p>` : ''}</div>`;
+  ${c.approx ? `<p class="pop__k">${t('club.approx')}</p>` : ''}
+  ${c.source ? `<p><a href="${esc(c.source)}" target="_blank" rel="noopener">${t('club.more')} →</a></p>` : ''}</div>`;
 const popRace = r => `<div class="pop">${r.challenge ? `<p class="pop__badge">${peak()}${t('map.challenge')}</p>` : ''}<p class="pop__k" style="margin-top:0">${RTYPE[r.type]} · ${countdown(r.date)}</p><h3>${esc(r.name)}</h3>
   <p>${cap(fmtDate(r.date, { weekday: 'short', day: 'numeric', month: 'long' }))} · ${esc(r.town)}</p>
   ${r.distances.length ? `<p>${r.distances.map(kmLabel).join(' · ')}</p>` : ''}
-  <p><button type="button" class="pop__more" data-race="${r.id}">Veure la fitxa →</button></p></div>`;
+  <p><button type="button" class="pop__more" data-race="${r.id}">${t('race.openSheet')} →</button></p></div>`;
 
 function drawRaces(list) {
   map.clear('races');
   list.forEach(r => map.add('races', { id: r.id, lat: r.lat, lng: r.lng, html: '<span></span>', cls: `mk mk--race ${r.challenge ? 'has-challenge' : ''}`,
-    label: `Carrera: ${r.name}, ${fmtDate(r.date, { day: 'numeric', month: 'long' })}`, popup: popRace(r) }));
+    label: `${t('race.label')}: ${r.name}, ${fmtDate(r.date, { day: 'numeric', month: 'long' })}`, popup: popRace(r) }));
 }
 
 function drawClubs(list) {
   mapC.clear('clubs');
   list.forEach(c => mapC.add('clubs', { id: c.id, lat: c.lat, lng: c.lng, html: peak(), cls: `mk mk--club mk--${c.type} ${c.partner ? 'is-partner' : ''}`,
-    label: `Club: ${c.name}, ${c.town}`, popup: popClub(c) }));
+    label: `${t('club.label')}: ${c.name}, ${c.town}`, popup: popClub(c) }));
 }
 
 async function initMap() {
-  map = await new SvgMap($('#map')).load(CONFIG.map.svg);
+  map = await new SvgMap($('#map')).load(ROOT + CONFIG.map.svg);
   drawRaces(filteredRaces());
   map.fit(races.map(p => map.project(p.lat, p.lng)), 50);
 }
 
 async function initClubMap() {
-  mapC = await new SvgMap($('#mapClubs')).load(CONFIG.map.svg);
+  mapC = await new SvgMap($('#mapClubs')).load(ROOT + CONFIG.map.svg);
   drawClubs(filteredClubs());
   mapC.fit(clubs.map(p => mapC.project(p.lat, p.lng)), 50);
 }
@@ -268,7 +268,7 @@ function lazy(sel, init) {
     const io = new IntersectionObserver(([en]) => {
       if (!en.isIntersecting) return;
       io.disconnect();
-      init().then(res).catch(err => { console.error(err); const s = el.querySelector('.map__placeholder span'); if (s) s.textContent = 'No s\'ha pogut carregar el mapa. Tens la llista a sota.'; });
+      init().then(res).catch(err => { console.error(err); const s = el.querySelector('.map__placeholder span'); if (s) s.textContent = t('map.error'); });
     }, { rootMargin: '400px' });
     io.observe(el);
   });
@@ -277,6 +277,7 @@ function lazy(sel, init) {
 let mapReady, clubMapReady;
 export async function initExplore() {
   [races, clubs] = await Promise.all([load('races'), load('clubs')]);
+  races = races.map(r => r.meetup ? { ...r, meetup: loc(r.meetup) } : r); clubs = clubs.map(loc);
   races.sort((a, b) => a.date.localeCompare(b.date));
   featured(); fillMonths(); fillTowns(); renderRaces(); renderClubs();
   $('#clubFilters').addEventListener('change', () => { showAllClubs = false; renderClubs(); });
@@ -312,7 +313,7 @@ export async function initExplore() {
   form.addEventListener('submit', async e => {
     e.preventDefault();
     const msg = $('.form-msg', form);
-    if (!form.checkValidity()) { msg.textContent = 'Revisa els camps obligatoris.'; form.querySelector(':invalid')?.focus(); return; }
+    if (!form.checkValidity()) { msg.textContent = t('form.required'); form.querySelector(':invalid')?.focus(); return; }
     const ok = await submitForm(form, CONFIG.forms.submission).catch(() => false);
     msg.textContent = ok ? t('form.thanks') : t('form.error');
     if (ok) form.reset();

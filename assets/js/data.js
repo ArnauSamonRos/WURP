@@ -1,5 +1,5 @@
 // Capa de dades: JSON local o Google Sheets (CSV publicat). El disseny no sap d'on venen.
-import { CONFIG } from './config.js';
+import { CONFIG, ROOT } from './config.js';
 const cache = {};
 
 function parseCSV(text) {
@@ -41,7 +41,7 @@ export function load(name) {
       try { return parseCSV(await (await fetch(src.sheetCsv)).text()).map(nest); }
       catch (e) { console.warn(`Sheet ${name} no disponible, faig servir JSON`, e); }
     }
-    const r = await fetch(src.json); if (!r.ok) throw new Error(`No s'ha pogut carregar ${src.json}`);
+    const r = await fetch(ROOT + src.json); if (!r.ok) throw new Error(`No s'ha pogut carregar ${src.json}`);
     return r.json();
   })();
   return cache[name];

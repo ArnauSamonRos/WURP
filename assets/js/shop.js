@@ -1,6 +1,6 @@
 // Botiga: graella, filtres, fitxa de producte i cistella.
 import { load } from './data.js';
-import { t, money } from './i18n.js';
+import { t, money, loc } from './i18n.js';
 import { $, $$, esc, garment, openDialog, toast } from './ui.js';
 import * as shopify from './shopify.js';
 
@@ -15,7 +15,7 @@ const media = (p, label) => p.image
   : garment(p.garment, p.color, label);
 
 function card(p) {
-  const alt = `${p.title}, color ${p.colorName ?? ''}`.trim();
+  const alt = `${p.title}, ${p.colorName ?? ''}`.replace(/, $/, '');
   return `<li class="product reveal">
     <button class="product__btn" data-product="${esc(p.id)}" aria-label="${esc(p.title)}, ${money(p.price)}. ${t('shop.view')}">
       <div class="product__media">
@@ -35,7 +35,7 @@ function renderGrid() {
   const f = Object.fromEntries(new FormData($('#shopFilters')));
   const list = products.filter(p => (!f.line || p.line === f.line) && (!f.type || p.type === f.type) && (!f.distance || p.distances.includes(f.distance)));
   $('#productGrid').innerHTML = list.length ? list.map(card).join('') : `<li class="empty">${t('shop.empty')}</li>`;
-  $('#shopStatus').textContent = `${list.length} peces`;
+  $('#shopStatus').textContent = t('shop.count', { n: list.length });
   requestAnimationFrame(() => $$('#productGrid .reveal').forEach(el => el.classList.add('is-in')));
 }
 
@@ -43,24 +43,24 @@ function openProduct(id) {
   const p = products.find(x => x.id === id); if (!p) return;
   const body = $('#productModalBody');
   body.innerHTML = `
-    <button class="modal__close" data-close aria-label="Tanca la fitxa">×</button>
+    <button class="modal__close" data-close aria-label="${t('ui.closeSheet')}">×</button>
     <div class="pdp">
-      <div class="pdp__media">${media(p, `${p.title}, color ${p.colorName ?? ''}`)}</div>
+      <div class="pdp__media">${media(p, `${p.title}, ${p.colorName ?? ''}`)}</div>
       <div>
-        <p class="pdp__line">Línia ${t('line.' + p.line)}</p>
+        <p class="pdp__line">${t('shop.line')} ${t('line.' + p.line)}</p>
         <h2 id="pm-title">${esc(p.title)}</h2>
         <p class="pdp__price">${money(p.price)}</p>
         <p class="pdp__desc">${esc(p.description)}</p>
         <ul class="pdp__features">${(p.features || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <div class="reco"><span class="reco__label">${t('shop.recommended')}:</span>
-          ${['10k', 'mitja', 'marato'].map(d => `<span class="reco__item ${p.distances.includes(d) ? 'is-on' : ''}">${p.distances.includes(d) ? '' : '<span class="sr-only">No recomanat: </span>'}${t('dist.' + d)}</span>`).join('')}
+          ${['10k', 'mitja', 'marato'].map(d => `<span class="reco__item ${p.distances.includes(d) ? 'is-on' : ''}">${p.distances.includes(d) ? '' : `<span class="sr-only">${t('shop.notReco')}: </span>`}${t('dist.' + d)}</span>`).join('')}
         </div>
         <form id="addForm" novalidate>
           <div class="pdp__row">
-            <span class="reco__label">Talla</span>
+            <span class="reco__label">${t('shop.size')}</span>
             <button type="button" data-open-size-guide>${t('shop.sizeGuide')}</button>
           </div>
-          <fieldset class="chips sizes"><legend class="sr-only">Talla</legend>
+          <fieldset class="chips sizes"><legend class="sr-only">${t('shop.size')}</legend>
             ${p.sizes.map(s => `<label><input type="radio" name="size" value="${esc(s)}" ${p.sizes.length === 1 ? 'checked' : ''}><span>${esc(s)}</span></label>`).join('')}
           </fieldset>
           <p class="pdp__error" role="alert"></p>
@@ -90,7 +90,7 @@ function renderCart() {
   const count = items.reduce((n, l) => n + l.qty, 0);
   const total = items.reduce((n, l) => n + l.qty * l.p.price, 0);
   const c = $('#cartCount'); c.textContent = count; c.toggleAttribute('data-empty', !count);
-  $('#cartOpen').setAttribute('aria-label', `Obre la cistella, ${count} articles`);
+  $('#cartOpen').setAttribute('aria-label', t('cart.open', { n: count }));
   $('#cartTotal').textContent = money(total);
   $('#checkoutBtn').disabled = !count;
   $('#cartNote').textContent = shopify.enabled ? '' : t('cart.demo');
@@ -99,9 +99,9 @@ function renderCart() {
       <div class="cart-item__media">${garment(l.p.garment, l.p.color)}</div>
       <div>
         <p class="cart-item__title">${esc(l.p.title)}</p>
-        <p class="cart-item__meta">Talla ${esc(l.size)} · ${money(l.p.price)}</p>
-        <div class="qty" role="group" aria-label="Quantitat de ${esc(l.p.title)}">
-          <button data-qty="-1" data-i="${i}" aria-label="Una menys">−</button><span aria-live="polite">${l.qty}</span><button data-qty="1" data-i="${i}" aria-label="Una més">+</button>
+        <p class="cart-item__meta">${t('shop.size')} ${esc(l.size)} · ${money(l.p.price)}</p>
+        <div class="qty" role="group" aria-label="${t('cart.qty')} ${esc(l.p.title)}">
+          <button data-qty="-1" data-i="${i}" aria-label="${t('cart.less')}">−</button><span aria-live="polite">${l.qty}</span><button data-qty="1" data-i="${i}" aria-label="${t('cart.more')}">+</button>
         </div>
       </div>
       <button class="cart-item__remove" data-remove="${i}">${t('cart.remove')}<span class="sr-only"> ${esc(l.p.title)}</span></button>
@@ -109,7 +109,7 @@ function renderCart() {
 }
 
 export async function initShop() {
-  products = await load('products');
+  products = (await load('products')).map(loc);
   if (shopify.enabled) { try { products = await shopify.fetchProducts(); } catch (e) { console.warn('Shopify no disponible, faig servir JSON', e); } }
   renderGrid(); renderCart();
 

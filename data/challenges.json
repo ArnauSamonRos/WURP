@@ -1,25 +1,234 @@
 {
-  "active":{
-    "id":"150-pantalons","title":"150 pantalons","garment":"shorts","color":"#6D1730",
-    "piece":"Pantaló Split Peak · edició numerada",
-    "description":"Corre 150 km en 30 dies. Sense pressa, sense saltar-te setmanes. Al final, el pantaló és teu. Numerat. No es ven enlloc.",
-    "conditions":["150 km en 30 dies naturals des que acceptes","Mínim 3 sortides per setmana","Només activitats de córrer (no bici ni caminar)","Almenys 2 sortides amb un club de la comunitat","Un repte per persona"],
-    "verification":"Connecta el teu Strava. Comptem automàticament les activitats públiques o compartides amb el club WURP. No veiem res més.",
-    "achieved":37,"total":150,"endsAt":"2027-01-31"
-  },
-  "hall":[
-    {"name":"Laia M.","town":"Sant Cugat","number":1,"note":"La primera sortida a les 6:00 cada dia."},
-    {"name":"Pau R.","town":"Terrassa","number":2,"note":"Tornar a córrer després de la lesió."},
-    {"name":"Marta G.","town":"Mataró","number":3,"note":"150 km pel passeig marítim."},
-    {"name":"Jordi S.","town":"Barcelona","number":4,"note":"Entrenant per a la primera mitja."},
-    {"name":"Núria P.","town":"Badalona","number":5,"note":"Corrent amb el cotxet."},
-    {"name":"Àlex T.","town":"Sabadell","number":6,"note":"Mai havia fet més de 60 km al mes."},
-    {"name":"Clara V.","town":"Granollers","number":7,"note":"Ritme lent, cap dia saltat."},
-    {"name":"Oriol F.","town":"Sant Boi","number":8,"note":"Mai s'ha perdut una social run de dijous."}
+ "active": {
+  "id": "150-pantalons",
+  "title": "150 pantalons",
+  "garment": "shorts",
+  "color": "#6D1730",
+  "piece": "Pantaló Split Peak · edició numerada",
+  "description": "Corre 150 km en 30 dies. Sense pressa, sense saltar-te setmanes. Al final, el pantaló és teu. Numerat. No es ven enlloc.",
+  "conditions": [
+   "150 km en 30 dies naturals des que acceptes",
+   "Mínim 3 sortides per setmana",
+   "Només activitats de córrer (no bici ni caminar)",
+   "Almenys 2 sortides amb un club de la comunitat",
+   "Un repte per persona"
   ],
-  "past":[
-    {"title":"100 samarretes","piece":"Samarreta Heavy Peak · granat","period":"Setembre 2026","rule":"20 sortides en 6 setmanes","units":100,"garment":"tee","color":"#6D1730"},
-    {"title":"75 gorres","piece":"Gorra Peak brodada","period":"Juny 2026","rule":"10 social runs amb un club en 2 mesos","units":75,"garment":"cap","color":"#1A1A1A"},
-    {"title":"50 jaquetes","piece":"Jaqueta Night Run · primera sèrie","period":"Febrer 2026","rule":"Completar una marató oficial","units":50,"garment":"jacket","color":"#3A2A2E"}
-  ]
+  "verification": "Connecta el teu Strava. Comptem automàticament les activitats públiques o compartides amb el club WURP. No veiem res més.",
+  "achieved": 37,
+  "total": 150,
+  "endsAt": "2027-01-31",
+  "i18n": {
+   "es": {
+    "title": "150 pantalones",
+    "piece": "Pantalón Split Peak · edición numerada",
+    "description": "Corre 150 km en 30 días. Sin prisa, sin saltarte semanas. Al final, el pantalón es tuyo. Numerado. No se vende en ningún sitio.",
+    "conditions": [
+     "150 km en 30 días naturales desde que aceptas",
+     "Mínimo 3 salidas por semana",
+     "Solo actividades de correr (ni bici ni caminar)",
+     "Al menos 2 salidas con un club de la comunidad",
+     "Un reto por persona"
+    ],
+    "verification": "Conecta tu Strava. Contamos automáticamente las actividades públicas o compartidas con el club WURP. No vemos nada más."
+   },
+   "en": {
+    "title": "150 shorts",
+    "piece": "Split Peak Short · numbered edition",
+    "description": "Run 150 km in 30 days. No rush, no skipped weeks. At the end, the shorts are yours. Numbered. Not sold anywhere.",
+    "conditions": [
+     "150 km in 30 calendar days from the day you accept",
+     "At least 3 runs a week",
+     "Running activities only (no cycling or walking)",
+     "At least 2 runs with a community club",
+     "One challenge per person"
+    ],
+    "verification": "Connect your Strava. We automatically count public activities or those shared with the WURP club. We don't see anything else."
+   }
+  }
+ },
+ "hall": [
+  {
+   "name": "Laia M.",
+   "town": "Sant Cugat",
+   "number": 1,
+   "note": "La primera sortida a les 6:00 cada dia.",
+   "i18n": {
+    "es": {
+     "note": "La primera salida a las 6:00 cada día."
+    },
+    "en": {
+     "note": "First run at 6:00 every single day."
+    }
+   }
+  },
+  {
+   "name": "Pau R.",
+   "town": "Terrassa",
+   "number": 2,
+   "note": "Tornar a córrer després de la lesió.",
+   "i18n": {
+    "es": {
+     "note": "Volver a correr después de la lesión."
+    },
+    "en": {
+     "note": "Back to running after an injury."
+    }
+   }
+  },
+  {
+   "name": "Marta G.",
+   "town": "Mataró",
+   "number": 3,
+   "note": "150 km pel passeig marítim.",
+   "i18n": {
+    "es": {
+     "note": "150 km por el paseo marítimo."
+    },
+    "en": {
+     "note": "150 km along the seafront."
+    }
+   }
+  },
+  {
+   "name": "Jordi S.",
+   "town": "Barcelona",
+   "number": 4,
+   "note": "Entrenant per a la primera mitja.",
+   "i18n": {
+    "es": {
+     "note": "Entrenando para la primera media."
+    },
+    "en": {
+     "note": "Training for a first half marathon."
+    }
+   }
+  },
+  {
+   "name": "Núria P.",
+   "town": "Badalona",
+   "number": 5,
+   "note": "Corrent amb el cotxet.",
+   "i18n": {
+    "es": {
+     "note": "Corriendo con el carrito."
+    },
+    "en": {
+     "note": "Running with the buggy."
+    }
+   }
+  },
+  {
+   "name": "Àlex T.",
+   "town": "Sabadell",
+   "number": 6,
+   "note": "Mai havia fet més de 60 km al mes.",
+   "i18n": {
+    "es": {
+     "note": "Nunca había hecho más de 60 km al mes."
+    },
+    "en": {
+     "note": "Had never run more than 60 km in a month."
+    }
+   }
+  },
+  {
+   "name": "Clara V.",
+   "town": "Granollers",
+   "number": 7,
+   "note": "Ritme lent, cap dia saltat.",
+   "i18n": {
+    "es": {
+     "note": "Ritmo lento, ningún día saltado."
+    },
+    "en": {
+     "note": "Slow pace, not a single day missed."
+    }
+   }
+  },
+  {
+   "name": "Oriol F.",
+   "town": "Sant Boi",
+   "number": 8,
+   "note": "Mai s'ha perdut una social run de dijous.",
+   "i18n": {
+    "es": {
+     "note": "Nunca se ha perdido una social run de los jueves."
+    },
+    "en": {
+     "note": "Never missed a Thursday social run."
+    }
+   }
+  }
+ ],
+ "past": [
+  {
+   "title": "100 samarretes",
+   "piece": "Samarreta Heavy Peak · granat",
+   "period": "Setembre 2026",
+   "rule": "20 sortides en 6 setmanes",
+   "units": 100,
+   "garment": "tee",
+   "color": "#6D1730",
+   "i18n": {
+    "es": {
+     "title": "100 camisetas",
+     "piece": "Camiseta Heavy Peak · granate",
+     "period": "Septiembre 2026",
+     "rule": "20 salidas en 6 semanas"
+    },
+    "en": {
+     "title": "100 tees",
+     "piece": "Heavy Peak Tee · maroon",
+     "period": "September 2026",
+     "rule": "20 runs in 6 weeks"
+    }
+   }
+  },
+  {
+   "title": "75 gorres",
+   "piece": "Gorra Peak brodada",
+   "period": "Juny 2026",
+   "rule": "10 social runs amb un club en 2 mesos",
+   "units": 75,
+   "garment": "cap",
+   "color": "#1A1A1A",
+   "i18n": {
+    "es": {
+     "title": "75 gorras",
+     "piece": "Gorra Peak bordada",
+     "period": "Junio 2026",
+     "rule": "10 social runs con un club en 2 meses"
+    },
+    "en": {
+     "title": "75 caps",
+     "piece": "Embroidered Peak Cap",
+     "period": "June 2026",
+     "rule": "10 social runs with a club in 2 months"
+    }
+   }
+  },
+  {
+   "title": "50 jaquetes",
+   "piece": "Jaqueta Night Run · primera sèrie",
+   "period": "Febrer 2026",
+   "rule": "Completar una marató oficial",
+   "units": 50,
+   "garment": "jacket",
+   "color": "#3A2A2E",
+   "i18n": {
+    "es": {
+     "title": "50 chaquetas",
+     "piece": "Chaqueta Night Run · primera serie",
+     "period": "Febrero 2026",
+     "rule": "Completar una maratón oficial"
+    },
+    "en": {
+     "title": "50 jackets",
+     "piece": "Night Run Jacket · first series",
+     "period": "February 2026",
+     "rule": "Finish an official marathon"
+    }
+   }
+  }
+ ]
 }

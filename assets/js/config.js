@@ -1,7 +1,11 @@
 // Configuració central. Edita aquí, no al codi dels components.
+// Arrel del web (funciona igual des de /, /es/ o /en/)
+export const ROOT = new URL('../../', import.meta.url).href;
+
 export const CONFIG = {
   defaultLang: 'ca',
-  languages: ['ca'],            // afegeix 'es' quan la traducció estigui completa
+  languages: ['ca', 'es', 'en'],
+  site: 'https://wurp.vercel.app',   // ← domini definitiu (canonical, hreflang, sitemap)
   // Fonts de dades: fitxer JSON local o URL CSV publicada de Google Sheets
   // (Fitxer > Compartir > Publicar al web > CSV). Si poses una URL CSV, té prioritat.
   data: {
