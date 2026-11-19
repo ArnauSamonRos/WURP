@@ -55,3 +55,12 @@ Afegeix `'es'` a `CONFIG.languages`, completa `i18n/es.json` i marca els textos 
 python3 scripts/gen_map.py comarques.geojson assets/img/catalunya.svg
 ```
 Els marcadors es col·loquen amb `lat`/`lng` dels JSON; no cal tocar l'SVG per afegir clubs o carreres.
+
+## Curses
+`data/races.json` es genera des de l'Excel de curses:
+```bash
+python3 scripts/build_races.py curses.xlsx centroides.json
+```
+`centroides.json` surt de `cat-municipis.json` (mateix repositori de cartografia). Els nuclis i barris que no són municipis
+(Empuriabrava, l'Estartit, Coma-ruga…) estan a `MANUAL` dins del script. La cursa destacada i les que tenen repte es
+marquen amb `FEATURED` i `CHALLENGE`. Les curses ja passades s'amaguen soles.

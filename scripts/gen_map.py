@@ -51,6 +51,7 @@ sea_x,sea_y=P(2.75,41.05)
 allp=''.join(paths)
 svg=f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" data-proj="{LON_MIN},{LAT_MAX},{K:.6f},{S:.4f}" class="cat-map">
 <!-- Catalunya per comarques. Generat amb scripts/gen_map.py (dades: sirisacademic/catalonia-cartography). -->
+<style>:where(.cat-com){{fill:#F4EFEA;stroke:#C9B9AC;stroke-width:.8}}:where(.cat-outline .cat-com){{fill:none;stroke:#6D1730;stroke-width:3}}:where(.cat-labels,.cat-cities,.cat-sea){{display:none}}</style>
 <use href="#cat-com" class="cat-outline"/>
 <g id="cat-com" class="cat-fill">{allp}</g>
 <g class="cat-labels" aria-hidden="true">{''.join(labels)}</g>

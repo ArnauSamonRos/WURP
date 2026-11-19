@@ -170,7 +170,23 @@
       </div>
     </div>
 
-    <form class="filters filters--races" id="raceFilters" aria-label="Filtra les carreres">
+    <div class="races-head">
+      <h3 class="h3">Calendari de curses</h3>
+      <p class="races-head__count" id="raceCount" aria-live="polite"></p>
+    </div>
+    <form class="rfilters" id="raceFilters" role="search" aria-label="Cerca i filtra les curses">
+      <label class="rsearch">
+        <span class="sr-only">Cerca per nom o municipi</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="1.5"/></svg>
+        <input type="search" name="q" placeholder="Cerca una cursa o un municipi" autocomplete="off">
+      </label>
+      <fieldset class="chips chips--scroll" aria-label="Tipus de cursa">
+        <label><input type="radio" name="rtype" value="" checked><span>Totes</span></label>
+        <label><input type="radio" name="rtype" value="asfalt"><span>Asfalt</span></label>
+        <label><input type="radio" name="rtype" value="trail"><span>Trail</span></label>
+        <label><input type="radio" name="rtype" value="cros"><span>Cros</span></label>
+        <label><input type="radio" name="rtype" value="multi"><span>Multiesport</span></label>
+      </fieldset>
       <div class="filters__selects">
         <label class="select"><span>Mes</span><select name="month" id="monthSelect"><option value="">Tots</option></select></label>
         <label class="select"><span>Distància</span>
@@ -178,22 +194,15 @@
             <option value="">Totes</option>
             <option value="5k">Fins a 5K</option>
             <option value="10k">6–10K</option>
-            <option value="half">Mitja</option>
-            <option value="marathon">Marató</option>
-          </select>
-        </label>
-        <label class="select"><span>Tipus</span>
-          <select name="rtype">
-            <option value="">Tots</option>
-            <option value="social">Social run</option>
-            <option value="cursa">Cursa</option>
-            <option value="solidaria">Solidària</option>
+            <option value="half">11K–mitja</option>
+            <option value="marathon">Fins a marató</option>
+            <option value="ultra">Ultra (+42K)</option>
           </select>
         </label>
       </div>
     </form>
-    <p class="sr-only" aria-live="polite" id="raceStatus"></p>
-    <ul class="race-list" id="raceList"></ul>
+    <div class="race-groups" id="raceList"></div>
+    <div class="cta-row cta-row--tight"><button class="btn btn--outline" type="button" id="raceMore" hidden></button></div>
 
     <h3 class="h3 sub-head">Clubs</h3>
     <form class="filters" id="clubFilters" aria-label="Filtra els clubs">
@@ -320,6 +329,11 @@
 <!-- Fitxa de producte -->
 <dialog class="modal" id="productModal" aria-labelledby="pm-title">
   <div class="modal__body" id="productModalBody"></div>
+</dialog>
+
+<!-- Fitxa de cursa -->
+<dialog class="modal rmodal" id="raceModal" aria-labelledby="rm-title">
+  <div id="raceModalBody"></div>
 </dialog>
 
 <!-- Guia de talles -->
