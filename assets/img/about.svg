@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice">
+  <!-- Placeholder. Substitueix per una foto real de la comunitat. -->
+  <defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9C49E"/><stop offset=".6" stop-color="#B8705A"/><stop offset="1" stop-color="#6D1730"/></linearGradient></defs>
+  <rect width="600" height="700" fill="url(#a)"/>
+  <path d="M0 520 L160 420 L300 480 L460 360 L600 440 L600 700 L0 700Z" fill="#561226" opacity=".7"/>
+  <g fill="#2A0E15">
+    <circle cx="250" cy="430" r="16"/><path d="M232 450 h36 l6 90 h-14 l-6 80 h-14 l-4-80 h-6 l-4 80 h-14 l6-80 h-8z"/>
+    <circle cx="340" cy="424" r="16"/><path d="M322 444 h36 l8 96 h-14 l-6 80 h-14 l-4-80 h-6 l-4 80 h-14 l6-80 h-10z"/>
+  </g>
+</svg>

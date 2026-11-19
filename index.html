@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WURP — What's ur peak?</title>
+<meta name="description" content="Roba de running, carreres i clubs de la zona i reptes per aconseguir peces exclusives. Busca el teu cim i treballa'l amb constància.">
+<meta name="theme-color" content="#6D1730">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script type="module" src="assets/js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Salta al contingut</a>
+
+<!-- Símbol del logo: reutilitzat a tota la web amb <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="peak" viewBox="-5 -7 84 100">
+    <path d="M37 0 L74 55.5 L54.8 86 L37 59 L19.2 86 L0 55.5 Z" fill="none" stroke="currentColor" stroke-width="var(--peak-stroke, 6.5)" stroke-linejoin="miter" stroke-miterlimit="10"/>
+  </symbol>
+</svg>
+
+<header class="header" id="top">
+  <div class="header__inner wrap">
+    <a href="#top" class="brand" aria-label="WURP, inici">
+      <svg class="brand__mark" aria-hidden="true"><use href="#peak"/></svg>
+      <span class="brand__word">WURP</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#roba">Roba</a></li>
+        <li><a href="#carreres">Carreres i clubs</a></li>
+        <li><a href="#reptes">Reptes</a></li>
+        <li><a href="#nosaltres">Nosaltres</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <button class="cart-btn" id="cartOpen" aria-label="Obre la cistella, 0 articles" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span class="cart-btn__count" id="cartCount">0</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Menú">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media" role="img" aria-label="Corredor pujant un camí de muntanya amb llum càlida de posta de sol">
+    <picture>
+      <!-- Substitueix per la foto real: assets/img/hero-800.webp, hero-1600.webp -->
+      <img src="assets/img/hero.svg" alt="" width="1600" height="1000" fetchpriority="high">
+    </picture>
+  </div>
+  <div class="hero__content wrap">
+    <p class="eyebrow">Roba de running · Comunitat · Reptes</p>
+    <h1 id="hero-title" class="hero__title">What's<br>ur peak?</h1>
+    <p class="hero__lead">Tria el teu objectiu. Treballa'l cada setmana. El cim és teu, no de ningú més.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--light" href="#roba">Roba</a>
+      <a class="btn btn--light" href="#carreres">Carreres i clubs</a>
+      <a class="btn btn--light" href="#reptes">Reptes</a>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFEST -->
+<section class="section manifest" id="manifest" aria-labelledby="manifest-title">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow">Manifest</p>
+      <h2 id="manifest-title" class="h2">Cada cim comença<br>a peu pla</h2>
+    </header>
+    <div class="ascent">
+      <svg class="ascent__line" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="0,195 100,170 200,140 300,108 400,72 500,38 600,4" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <ol class="ascent__list">
+        <li class="ascent__step"><span class="ascent__n">01</span><h3>Comunitat</h3><p>Ningú arriba sol. Comença amb els que corren al teu costat.</p></li>
+        <li class="ascent__step"><span class="ascent__n">02</span><h3>Inspiració</h3><p>Mira qui ho ha fet. Pensa què vols fer tu.</p></li>
+        <li class="ascent__step"><span class="ascent__n">03</span><h3>Objectiu</h3><p>Posa-li nom i data. Si no, és només una idea.</p></li>
+        <li class="ascent__step"><span class="ascent__n">04</span><h3>Propòsit</h3><p>Sàpigues per què. T'ho preguntaràs al km 30.</p></li>
+        <li class="ascent__step"><span class="ascent__n">05</span><h3>Constància</h3><p>Dimarts, dijous, dissabte. També quan plou.</p></li>
+        <li class="ascent__step ascent__step--peak">
+          <svg class="peak-icon" aria-hidden="true"><use href="#peak"/></svg>
+          <span class="ascent__n">06</span><h3>Assoliment</h3><p>El cim és teu. I després, en busques un altre.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><svg><use href="#peak"/></svg></div>
+
+<!-- ROBA -->
+<section class="section shop" id="roba" aria-labelledby="roba-title">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow">Roba</p>
+      <h2 id="roba-title" class="h2">Dues línies.<br>Un mateix objectiu.</h2>
+    </header>
+    <div class="lines">
+      <article class="line-card">
+        <h3 class="h3">Accessible</h3>
+        <p>Qualitat tècnica a un preu que no et fa pensar-t'ho. La roba de cada dia.</p>
+        <button class="link-arrow" data-filter-line="accessible">Veure la línia</button>
+      </article>
+      <article class="line-card line-card--dark">
+        <h3 class="h3">Premium</h3>
+        <p>Teixits heavy, acabats superiors. Peces que duren tantes temporades com tu.</p>
+        <button class="link-arrow" data-filter-line="premium">Veure la línia</button>
+      </article>
+    </div>
+
+    <form class="filters" id="shopFilters" aria-label="Filtra la roba">
+      <fieldset class="chips">
+        <legend>Línia</legend>
+        <label><input type="radio" name="line" value="" checked><span>Totes</span></label>
+        <label><input type="radio" name="line" value="accessible"><span>Accessible</span></label>
+        <label><input type="radio" name="line" value="premium"><span>Premium</span></label>
+      </fieldset>
+      <div class="filters__selects">
+        <label class="select"><span>Peça</span>
+          <select name="type">
+            <option value="">Totes</option>
+            <option value="samarreta">Samarretes</option>
+            <option value="pantalo">Pantalons</option>
+            <option value="jaqueta">Jaquetes</option>
+            <option value="accessori">Accessoris</option>
+          </select>
+        </label>
+        <label class="select"><span>Distància</span>
+          <select name="distance">
+            <option value="">Totes</option>
+            <option value="10k">10K</option>
+            <option value="mitja">Mitja</option>
+            <option value="marato">Marató</option>
+          </select>
+        </label>
+      </div>
+    </form>
+    <p class="sr-only" aria-live="polite" id="shopStatus"></p>
+    <ul class="grid products" id="productGrid"></ul>
+  </div>
+</section>
+
+<!-- CARRERES I CLUBS -->
+<section class="section explore" id="carreres" aria-labelledby="carreres-title">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow">Carreres i clubs</p>
+      <h2 id="carreres-title" class="h2">On corre<br>la teva zona</h2>
+      <p class="section__lead">Una selecció curada cada mes. Clubs on trobar gent al teu ritme.</p>
+    </header>
+
+    <article class="featured-race" id="featuredRace" aria-labelledby="featured-title"></article>
+
+    <div class="map-block">
+      <div class="map-toggles" role="group" aria-label="Capes del mapa">
+        <label class="toggle"><input type="checkbox" id="layerClubs" checked><span class="toggle__dot toggle__dot--club"></span>Clubs</label>
+        <label class="toggle"><input type="checkbox" id="layerRaces" checked><span class="toggle__dot toggle__dot--race"></span>Carreres</label>
+      </div>
+      <div class="map" id="map" aria-label="Mapa interactiu de clubs i carreres. La mateixa informació és a la llista de sota." role="region">
+        <div class="map__placeholder"><svg aria-hidden="true"><use href="#peak"/></svg><span>Carregant el mapa…</span></div>
+      </div>
+    </div>
+
+    <form class="filters filters--races" id="raceFilters" aria-label="Filtra les carreres">
+      <div class="filters__selects">
+        <label class="select"><span>Mes</span><select name="month" id="monthSelect"><option value="">Tots</option></select></label>
+        <label class="select"><span>Distància</span>
+          <select name="dcat">
+            <option value="">Totes</option>
+            <option value="short">Fins a 10K</option>
+            <option value="half">Mitja (11–21K)</option>
+            <option value="marathon">Marató (22–42K)</option>
+            <option value="ultra">Ultra (+42K)</option>
+          </select>
+        </label>
+        <label class="select"><span>Tipus</span>
+          <select name="rtype">
+            <option value="">Tots</option>
+            <option value="asfalt">Asfalt</option>
+            <option value="trail">Trail</option>
+            <option value="muntanya">Muntanya</option>
+          </select>
+        </label>
+      </div>
+    </form>
+    <p class="sr-only" aria-live="polite" id="raceStatus"></p>
+    <ul class="race-list" id="raceList"></ul>
+
+    <h3 class="h3 sub-head">Clubs</h3>
+    <ul class="grid clubs" id="clubList"></ul>
+
+    <div class="cta-row">
+      <button class="btn btn--outline" id="openSubmit" aria-haspopup="dialog">Afegeix el teu club o carrera</button>
+    </div>
+  </div>
+</section>
+
+<!-- REPTES -->
+<section class="section challenges" id="reptes" aria-labelledby="reptes-title">
+  <div class="wrap">
+    <header class="section__head section__head--light">
+      <p class="eyebrow">Reptes · Línia exclusiva</p>
+      <h2 id="reptes-title" class="h2">Aquesta roba no es compra.<br>S'aconsegueix.</h2>
+    </header>
+
+    <article class="challenge" id="activeChallenge" aria-labelledby="challenge-title"></article>
+
+    <ol class="steps">
+      <li><span class="steps__n">1</span><h3>Accepta el repte</h3><p>Apunta't i connecta Strava. Comença el compte enrere.</p></li>
+      <li><span class="steps__n">2</span><h3>Entrena</h3><p>Al teu ritme. El que compta és no parar.</p></li>
+      <li><span class="steps__n">3</span><h3>Verifica</h3><p>Les teves activitats es comproven soles.</p></li>
+      <li><span class="steps__n">4</span><h3>Aconsegueix la peça</h3><p>Numerada, a casa teva. No en farem més.</p></li>
+    </ol>
+
+    <h3 class="h3 sub-head">Hall of Peaks</h3>
+    <ul class="hall" id="hallOfPeaks"></ul>
+
+    <h3 class="h3 sub-head">Reptes passats</h3>
+    <ul class="archive" id="pastChallenges"></ul>
+  </div>
+</section>
+
+<!-- COMUNITAT -->
+<section class="section community" id="comunitat" aria-labelledby="comunitat-title">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="eyebrow">Comunitat · @wurp.run</p>
+      <h2 id="comunitat-title" class="h2">Corre amb nosaltres</h2>
+    </header>
+    <ul class="insta" id="instaFeed"></ul>
+
+    <div class="newsletter">
+      <div>
+        <h3 class="h3">Rep el proper repte abans que ningú</h3>
+        <p>Un correu quan s'obre un repte. Res més.</p>
+      </div>
+      <form class="newsletter__form" id="newsletterForm" novalidate>
+        <label for="nlEmail" class="sr-only">Correu electrònic</label>
+        <input id="nlEmail" name="email" type="email" required autocomplete="email" placeholder="El teu correu">
+        <button class="btn" type="submit">M'apunto</button>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- NOSALTRES -->
+<section class="section about" id="nosaltres" aria-labelledby="nosaltres-title">
+  <div class="wrap about__grid">
+    <figure class="frame">
+      <svg class="frame__svg" viewBox="-5 -7 84 100" aria-hidden="true"><use href="#peak"/></svg>
+      <img src="assets/img/about.svg" alt="Dos corredors parlant després d'un entrenament al costat d'un camí" loading="lazy" width="600" height="700">
+    </figure>
+    <div>
+      <p class="eyebrow">Nosaltres</p>
+      <h2 id="nosaltres-title" class="h2">Per què existeix WURP</h2>
+      <p class="about__lead">Vam començar corrent junts els dissabtes a Collserola. Cadascú amb el seu objectiu: una primera 10K, baixar d'1:30 a la mitja, tornar després d'una lesió.</p>
+      <p>Vam veure que el que ens feia avançar no era la roba ni el rellotge. Era tenir un objectiu clar i algú amb qui treballar-lo. WURP és això: roba feta per durar, una comunitat de la zona i reptes que es guanyen amb constància.</p>
+      <p>No es tracta de ser més ràpid que ningú. Es tracta de saber quin és el teu cim. <strong>What's ur peak?</strong></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <svg class="brand__mark brand__mark--lg" aria-hidden="true"><use href="#peak"/></svg>
+      <p class="footer__word">WURP</p>
+      <p>What's ur peak?</p>
+    </div>
+    <nav aria-label="Xarxes">
+      <h2 class="footer__h">Xarxes</h2>
+      <ul><li><a href="https://instagram.com/" rel="noopener">Instagram</a></li><li><a href="https://www.strava.com/" rel="noopener">Club a Strava</a></li><li><a href="https://www.tiktok.com/" rel="noopener">TikTok</a></li></ul>
+    </nav>
+    <nav aria-label="Ajuda">
+      <h2 class="footer__h">Ajuda</h2>
+      <ul><li><a href="#enviaments">Enviaments i devolucions</a></li><li><a href="#guia-talles" data-open-size-guide>Guia de talles</a></li><li><a href="mailto:hola@wurp.run">Contacte</a></li></ul>
+    </nav>
+    <nav aria-label="Legal">
+      <h2 class="footer__h">Legal</h2>
+      <ul><li><a href="#avis-legal">Avís legal</a></li><li><a href="#privacitat">Privacitat</a></li><li><a href="#cookies">Cookies</a></li></ul>
+    </nav>
+    <div id="enviaments" class="footer__note">
+      <h2 class="footer__h">Enviaments i devolucions</h2>
+      <p>Enviament gratuït a partir de 60 €. 24–72 h a la península. Devolucions gratuïtes durant 30 dies.</p>
+    </div>
+  </div>
+  <div class="wrap footer__bottom">
+    <p>© <span id="year">2026</span> WURP. Fet a Catalunya.</p>
+    <p class="lang" aria-label="Idioma"><strong>CA</strong> <span aria-hidden="true">·</span> <span title="Properament">ES</span></p>
+  </div>
+</footer>
+
+<!-- Fitxa de producte -->
+<dialog class="modal" id="productModal" aria-labelledby="pm-title">
+  <div class="modal__body" id="productModalBody"></div>
+</dialog>
+
+<!-- Guia de talles -->
+<dialog class="modal modal--sm" id="sizeGuide" aria-labelledby="sg-title">
+  <div class="modal__body">
+    <button class="modal__close" data-close aria-label="Tanca">×</button>
+    <h2 id="sg-title" class="h3">Guia de talles</h2>
+    <p>Mesures del cos en cm. Si estàs entre dues talles, tria la petita per a peces de cursa i la gran per a les heavy.</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Talla</th><th scope="col">Pit</th><th scope="col">Cintura</th><th scope="col">Maluc</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">XS</th><td>82–88</td><td>66–72</td><td>84–90</td></tr>
+        <tr><th scope="row">S</th><td>88–94</td><td>72–78</td><td>90–96</td></tr>
+        <tr><th scope="row">M</th><td>94–100</td><td>78–84</td><td>96–102</td></tr>
+        <tr><th scope="row">L</th><td>100–106</td><td>84–90</td><td>102–108</td></tr>
+        <tr><th scope="row">XL</th><td>106–112</td><td>90–96</td><td>108–114</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</dialog>
+
+<!-- Formulari club / carrera -->
+<dialog class="modal modal--sm" id="submitModal" aria-labelledby="sm-title">
+  <div class="modal__body">
+    <button class="modal__close" data-close aria-label="Tanca">×</button>
+    <h2 id="sm-title" class="h3">Afegeix el teu club o carrera</h2>
+    <p>Ho revisem a mà. Si encaixa, surt al mapa.</p>
+    <form id="submitForm" class="form" novalidate>
+      <fieldset class="chips">
+        <legend>Què vols afegir?</legend>
+        <label><input type="radio" name="kind" value="club" checked><span>Club</span></label>
+        <label><input type="radio" name="kind" value="cursa"><span>Carrera</span></label>
+      </fieldset>
+      <label class="field"><span>Nom</span><input name="name" required></label>
+      <label class="field"><span>Població</span><input name="town" required></label>
+      <label class="field" data-kind="club"><span>Dies i hores d'entrenament</span><input name="days" placeholder="Dt i Dj 19:30"></label>
+      <div class="field-row" data-kind="cursa" hidden>
+        <label class="field"><span>Data</span><input name="date" type="date"></label>
+        <label class="field"><span>Distància (km)</span><input name="km" type="number" min="1" step="0.1"></label>
+        <label class="field"><span>Desnivell (m)</span><input name="elev" type="number" min="0"></label>
+      </div>
+      <label class="field" data-kind="cursa" hidden><span>Enllaç d'inscripció</span><input name="url" type="url" placeholder="https://"></label>
+      <label class="field"><span>Correu de contacte</span><input name="email" type="email" required autocomplete="email"></label>
+      <button class="btn" type="submit">Envia</button>
+      <p class="form-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</dialog>
+
+<!-- Cistella -->
+<dialog class="drawer" id="cartDrawer" aria-labelledby="cart-title">
+  <div class="drawer__head">
+    <h2 id="cart-title" class="h3">Cistella</h2>
+    <button class="modal__close" data-close aria-label="Tanca la cistella">×</button>
+  </div>
+  <ul class="cart-items" id="cartItems"></ul>
+  <div class="drawer__foot">
+    <p class="cart-total"><span>Total</span><strong id="cartTotal">0 €</strong></p>
+    <button class="btn btn--block" id="checkoutBtn">Finalitza la compra</button>
+    <p class="drawer__note" id="cartNote"></p>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

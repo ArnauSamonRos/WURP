@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <!-- Placeholder il·lustrat. Substitueix per una foto real (corredor en pujada, to càlid). -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3A1420"/><stop offset=".45" stop-color="#8A3A3A"/><stop offset=".75" stop-color="#D98E5F"/><stop offset="1" stop-color="#F2C391"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="1120" cy="560" r="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE3B8" stop-opacity=".95"/><stop offset="1" stop-color="#FFE3B8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1120" cy="560" r="260" fill="url(#sun)"/>
+  <path d="M0 640 L220 520 L380 590 L620 410 L820 540 L1040 360 L1260 500 L1600 380 L1600 1000 L0 1000Z" fill="#7A3236" opacity=".55"/>
+  <path d="M0 760 L300 640 L520 700 L800 560 L1080 470 L1260 400 L1600 560 L1600 1000 L0 1000Z" fill="#4E1A26"/>
+  <path d="M0 1000 L0 860 L600 760 L1000 600 L1220 470 L1600 700 L1600 1000Z" fill="#2E0F17"/>
+  <path d="M1000 600 L1220 470" stroke="#F4C9A0" stroke-width="2" opacity=".5"/>
+  <!-- corredor -->
+  <g transform="translate(1108 448) scale(1.15)" fill="#1A0A0E">
+    <circle cx="20" cy="-62" r="9"/>
+    <path d="M14 -52 L30 -50 L34 -22 L52 -6 L46 0 L26 -16 L18 6 L6 34 L-4 30 L6 2 L4 -24 L-10 -10 L-16 -16 L2 -40 Z"/>
+    <path d="M30 -48 L44 -34 L54 -40 L57 -36 L44 -26 L30 -36Z"/>
+  </g>
+</svg>

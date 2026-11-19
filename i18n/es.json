@@ -1,0 +1,7 @@
+{
+  "currency":"EUR","locale":"es-ES",
+  "shop.add":"Añadir a la cesta","shop.selectSize":"Elige una talla","shop.recommended":"Recomendado para","shop.sizeGuide":"Guía de tallas","shop.empty":"Ninguna prenda con estos filtros.","shop.view":"Ver ficha",
+  "cart.title":"Cesta","cart.empty":"La cesta está vacía. De momento.","cart.total":"Total","cart.checkout":"Finalizar compra",
+  "map.clubs":"Clubs","map.races":"Carreras",
+  "_note":"Traducción parcial: las claves que falten caen a ca.json. Los textos del HTML se traducen con data-i18n."
+}

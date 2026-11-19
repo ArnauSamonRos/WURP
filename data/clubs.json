@@ -1,0 +1,7 @@
+[
+  {"id":"c1","name":"Collserola Runners","zone":"Sant Cugat del Vallès","lat":41.4722,"lng":2.0845,"days":"Dt i Dj 19:30 · Ds 8:00","contact":"hola@collserolarunners.cat","instagram":"collserolarunners","partner":true,"description":"Pista i muntanya. Grups per ritmes, de 6:30 a 4:15 min/km."},
+  {"id":"c2","name":"Club Atletisme Riu Besòs","zone":"Santa Coloma de Gramenet","lat":41.4515,"lng":2.2087,"days":"Dl, Dc i Dv 19:00","contact":"info@cariubesos.cat","instagram":"cariubesos","partner":false,"description":"Rodatges pel parc fluvial i sèries a la pista municipal."},
+  {"id":"c3","name":"Montjuïc Dawn Club","zone":"Barcelona · Poble-sec","lat":41.3711,"lng":2.1599,"days":"Dc 7:00 · Dg 8:30","contact":"dawn@montjuicdawn.cat","instagram":"montjuicdawnclub","partner":true,"description":"Sortim abans que surti el sol. Pujades a Montjuïc i esmorzar."},
+  {"id":"c4","name":"Terrassa Trail Team","zone":"Terrassa","lat":41.5633,"lng":2.0089,"days":"Dt 19:00 · Ds 7:30","contact":"equip@terrassatrail.cat","instagram":"terrassatrailteam","partner":false,"description":"Sant Llorenç del Munt cada dissabte. Desnivell i bon ambient."},
+  {"id":"c5","name":"Corredors del Maresme","zone":"Mataró","lat":41.5381,"lng":2.4445,"days":"Dl i Dj 19:30 · Dg 8:00","contact":"club@corredorsmaresme.cat","instagram":"corredorsmaresme","partner":false,"description":"Passeig marítim, tirades llargues i preparació de marató."}
+]

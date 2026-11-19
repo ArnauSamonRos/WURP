@@ -1,0 +1,14 @@
+{
+  "currency":"EUR","locale":"ca-ES",
+  "shop.add":"Afegeix a la cistella","shop.selectSize":"Tria una talla","shop.recommended":"Recomanat per a","shop.sizeGuide":"Guia de talles","shop.empty":"Cap peça amb aquests filtres.","shop.view":"Veure fitxa",
+  "line.accessible":"Accessible","line.premium":"Premium",
+  "dist.10k":"10K","dist.mitja":"Mitja","dist.marato":"Marató",
+  "type.samarreta":"Samarretes","type.pantalo":"Pantalons","type.jaqueta":"Jaquetes","type.accessori":"Accessoris",
+  "cart.title":"Cistella","cart.empty":"La cistella és buida. De moment.","cart.total":"Total","cart.checkout":"Finalitza la compra","cart.remove":"Treu","cart.added":"Afegit a la cistella","cart.demo":"Mode demo: connecta Shopify a config.js per activar el pagament.",
+  "map.clubs":"Clubs","map.races":"Carreres","map.partner":"Club col·laborador","map.challenge":"Té repte associat","map.signup":"Inscripció","map.loading":"Carregant el mapa…","map.activate":"Toca per moure el mapa",
+  "race.elev":"D+","race.empty":"Cap carrera amb aquests filtres.","race.allMonths":"Tots els mesos",
+  "rtype.asfalt":"Asfalt","rtype.trail":"Trail","rtype.muntanya":"Muntanya",
+  "dcat.short":"Fins a 10K","dcat.half":"Mitja (11–21K)","dcat.marathon":"Marató (22–42K)","dcat.ultra":"Ultra (+42K)",
+  "form.thanks":"Rebut. Ho revisem i et diem alguna cosa en uns dies.","form.news":"Fet. Seràs dels primers a saber-ho.","form.error":"No s'ha pogut enviar. Torna-ho a provar.",
+  "challenge.left":"queden","challenge.achieved":"aconseguides"
+}

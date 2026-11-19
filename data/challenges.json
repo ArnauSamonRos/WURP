@@ -1,0 +1,25 @@
+{
+  "active":{
+    "id":"150-pantalons","title":"150 pantalons","garment":"shorts","color":"#6D1730",
+    "piece":"Pantaló Split Peak · edició numerada",
+    "description":"Corre 150 km en 30 dies. Sense pressa, sense saltar-te setmanes. Al final, el pantaló és teu. Numerat. No es ven enlloc.",
+    "conditions":["150 km en 30 dies naturals des que acceptes","Mínim 3 sortides per setmana","Només activitats de córrer (no bici ni caminar)","Un repte per persona"],
+    "verification":"Connecta el teu Strava. Comptem automàticament les activitats públiques o compartides amb el club WURP. No veiem res més.",
+    "achieved":37,"total":150,"endsAt":"2027-01-31"
+  },
+  "hall":[
+    {"name":"Laia M.","town":"Sant Cugat","number":1,"note":"La primera sortida a les 6:00 cada dia."},
+    {"name":"Pau R.","town":"Terrassa","number":2,"note":"Tornar a córrer després de la lesió."},
+    {"name":"Marta G.","town":"Mataró","number":3,"note":"150 km pel passeig marítim."},
+    {"name":"Jordi S.","town":"Barcelona","number":4,"note":"Entrenant per a la primera mitja."},
+    {"name":"Núria P.","town":"Badalona","number":5,"note":"Corrent amb el cotxet."},
+    {"name":"Àlex T.","town":"Sabadell","number":6,"note":"Mai havia fet més de 60 km al mes."},
+    {"name":"Clara V.","town":"Granollers","number":7,"note":"Ritme lent, cap dia saltat."},
+    {"name":"Oriol F.","town":"Sant Boi","number":8,"note":"Pujades a Collserola els diumenges."}
+  ],
+  "past":[
+    {"title":"100 samarretes","piece":"Samarreta Heavy Peak · granat","period":"Setembre 2026","rule":"20 sortides en 6 setmanes","units":100,"garment":"tee","color":"#6D1730"},
+    {"title":"75 gorres","piece":"Gorra Peak brodada","period":"Juny 2026","rule":"1.000 m de desnivell positiu en una sortida","units":75,"garment":"cap","color":"#1A1A1A"},
+    {"title":"50 jaquetes","piece":"Jaqueta Summit · primera sèrie","period":"Febrer 2026","rule":"Completar una marató oficial","units":50,"garment":"jacket","color":"#3A2A2E"}
+  ]
+}
