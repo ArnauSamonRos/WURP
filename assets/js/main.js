@@ -5,6 +5,7 @@ import { $, esc, wireDialogs, submitForm } from './ui.js';
 import { initShop } from './shop.js';
 import { initExplore } from './explore.js';
 import { initChallenges } from './challenges.js';
+import { initBanner } from './banner.js';
 
 // Tons càlids per al feed (placeholder fins connectar Instagram: Behold, Elfsight o Graph API).
 const TONES = ['#6D1730,#C9876B', '#3A2A2E,#B9775C', '#8A2A45,#E2B48E', '#D9C4B0,#F4EFEA', '#561226,#9A5A48', '#2A1B1F,#7A3B3F'];
@@ -49,7 +50,7 @@ function initReveal() {
 
 (async () => {
   $('#year').textContent = new Date().getFullYear();
-  initNav(); wireDialogs(); initReveal();
+  initNav(); wireDialogs(); initBanner($('#banner')); initReveal();
   await initI18n();
   const results = await Promise.allSettled([initShop(), initExplore(), initChallenges(), initCommunity()]);
   results.forEach(r => r.status === 'rejected' && console.error(r.reason));

@@ -51,8 +51,10 @@
 
 <main id="main">
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-title">
+<!-- BANNER: hero + manifest -->
+<div class="banner" id="banner" aria-roledescription="carrusel" aria-label="Presentació de WURP">
+  <div class="banner__track" id="bannerTrack" aria-live="off">
+<section class="hero banner__slide" id="slide-1" role="group" aria-roledescription="diapositiva" aria-label="1 de 2" aria-labelledby="hero-title">
   <div class="hero__media" role="img" aria-label="Quatre corredors en grup per un passeig amb l'skyline de la ciutat al capvespre, en to granat">
     <picture>
             <img src="assets/img/hero-1951.webp" alt="" width="1951" height="806" fetchpriority="high">
@@ -70,8 +72,7 @@
   </div>
 </section>
 
-<!-- MANIFEST -->
-<section class="section manifest" id="manifest" aria-labelledby="manifest-title">
+<section class="section manifest banner__slide" id="manifest" role="group" aria-roledescription="diapositiva" aria-label="2 de 2" aria-labelledby="manifest-title">
   <div class="wrap">
     <header class="section__head">
       <p class="eyebrow">Manifest</p>
@@ -94,6 +95,17 @@
     </div>
   </div>
 </section>
+  </div>
+  <div class="banner__ctrl">
+    <button type="button" class="banner__arrow" data-dir="-1" aria-label="Diapositiva anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    <div class="banner__dots" role="tablist" aria-label="Tria la diapositiva">
+      <button type="button" role="tab" class="banner__dot" data-go="0" aria-controls="slide-1" aria-label="What's ur peak?"><span></span></button>
+      <button type="button" role="tab" class="banner__dot" data-go="1" aria-controls="manifest" aria-label="Manifest"><span></span></button>
+    </div>
+    <button type="button" class="banner__arrow" data-dir="1" aria-label="Diapositiva següent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    <button type="button" class="banner__pause" aria-label="Atura el canvi automàtic" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2"/><path class="i-play" d="M7 5l12 7-12 7z" fill="currentColor"/></svg></button>
+  </div>
+</div>
 
 <div class="divider" aria-hidden="true"><svg><use href="#peak"/></svg></div>
 

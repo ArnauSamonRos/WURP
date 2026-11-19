@@ -592,3 +592,69 @@ thead th{font:600 11px/1 var(--f-body);letter-spacing:.14em;text-transform:upper
 @media (min-width:900px){.rfilters{grid-template-columns:auto 1fr}.rsearch{grid-column:1/-1}}
 .rfilters > *{min-width:0}
 fieldset.chips--scroll{min-width:0;max-width:100vw}
+
+/* ===== Banner: hero + manifest ===== */
+.banner{position:relative;overflow:hidden;background:var(--crema)}
+.banner__track{display:flex;transition:transform .8s cubic-bezier(.65,0,.25,1);touch-action:pan-y}
+.banner__slide{flex:0 0 100%;min-width:0;min-height:calc(100svh - 64px)}
+.banner .manifest{display:flex;align-items:center;padding:clamp(56px,8vw,96px) 0 104px}
+.banner .manifest > .wrap{width:100%}
+.banner .manifest .section__head{margin-bottom:clamp(24px,4vw,48px)}
+.banner .hero__content{padding-bottom:110px}
+@media (max-width:899px){.banner .ascent__step{padding:12px 0}.banner .ascent__step::before{top:20px}.banner .ascent__step--peak .peak-icon{top:6px}}
+@media (min-width:900px){.banner .ascent__step:nth-child(1){margin-top:240px}.banner .ascent__step:nth-child(2){margin-top:200px}.banner .ascent__step:nth-child(3){margin-top:156px}.banner .ascent__step:nth-child(4){margin-top:108px}.banner .ascent__step:nth-child(5){margin-top:56px}}
+.banner__ctrl{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:6px;padding:6px;background:rgba(244,239,234,.92);backdrop-filter:blur(8px);border:1px solid var(--line)}
+.banner__arrow,.banner__pause{width:40px;height:40px;border:0;background:none;display:grid;place-items:center;color:var(--ink)}
+.banner__arrow svg,.banner__pause svg{width:20px;height:20px}
+.banner__arrow:hover,.banner__pause:hover{color:var(--granat)}
+.banner__pause .i-play{display:none}
+.banner__pause[aria-pressed="true"] .i-play{display:block}
+.banner__pause[aria-pressed="true"] .i-pause{display:none}
+.banner__dots{display:flex;gap:4px}
+.banner__dot{width:56px;height:40px;border:0;background:none;display:grid;place-items:center;padding:0}
+.banner__dot span{position:relative;display:block;width:100%;height:2px;background:var(--line);overflow:hidden}
+.banner__dot span::after{content:"";position:absolute;inset:0;background:var(--granat);transform:scaleX(0);transform-origin:left}
+.banner__dot[aria-selected="true"] span::after{transform:scaleX(1)}
+.banner.is-playing .banner__dot[aria-selected="true"] span::after{animation:bannerprog var(--dur,6s) linear forwards}
+.banner.is-paused .banner__dot[aria-selected="true"] span::after{animation:none;transform:scaleX(1)}
+@keyframes bannerprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.banner__slide[aria-hidden="true"] *{visibility:hidden;transition:visibility 0s .8s}
+@media (prefers-reduced-motion:reduce){.banner__track{transition:none}}
+/* Banner: manifest compacte perquè les dues diapositives càpiguen a la pantalla */
+.banner .manifest .section__head{max-width:none}
+.banner .manifest .h2{font-size:clamp(36px,6vw,72px)}
+.banner .manifest .eyebrow{margin-bottom:12px}
+@media (max-width:899px){
+  .banner .manifest{padding:24px 0 84px}
+  .banner .ascent__list{padding-left:24px}
+  .banner .ascent__step{padding:8px 0}
+  .banner .ascent__step h3{font-size:24px;margin:2px 0}
+  .banner .ascent__step p{font-size:14px;line-height:1.4}
+  .banner .ascent__n{font-size:11px}
+  .banner .ascent__step::before{left:-29px;top:14px}
+  .banner .ascent__step--peak .peak-icon{left:-36px;top:4px;width:24px;height:28px}
+}
+@media (min-width:900px){
+  .banner .ascent{padding-top:24px}
+  .banner .ascent__step:nth-child(1){margin-top:200px}.banner .ascent__step:nth-child(2){margin-top:164px}.banner .ascent__step:nth-child(3){margin-top:126px}
+  .banner .ascent__step:nth-child(4){margin-top:86px}.banner .ascent__step:nth-child(5){margin-top:44px}
+  .banner .ascent__line{top:24px;height:calc(100% - 130px)}
+}
+@media (max-width:899px){
+  .banner .hero__title{font-size:clamp(52px,15vw,96px)}
+  .banner .hero__lead{font-size:16px;margin-top:16px}
+  .banner .hero__ctas{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:24px}
+  .banner .hero__ctas .btn{min-height:46px;padding:0 6px;font-size:13px;letter-spacing:.08em;text-align:center;line-height:1.1}
+  .banner .hero__content{padding-top:80px;padding-bottom:96px}
+  /* Manifest en dues columnes, de baix (01) a dalt (06) */
+  .banner .ascent__list{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;border:0;padding:0}
+  .banner .ascent__step{padding:10px 0 10px 18px;border-left:1px solid var(--granat)}
+  .banner .ascent__step::before{left:-5px;top:16px}
+  .banner .ascent__step:nth-child(1){grid-area:3/1}.banner .ascent__step:nth-child(2){grid-area:3/2}
+  .banner .ascent__step:nth-child(3){grid-area:2/1}.banner .ascent__step:nth-child(4){grid-area:2/2}
+  .banner .ascent__step:nth-child(5){grid-area:1/1}.banner .ascent__step:nth-child(6){grid-area:1/2}
+  .banner .ascent__step--peak .peak-icon{left:-12px;top:2px;width:22px;height:26px}
+  .banner .ascent__step--peak{border-left-color:transparent;padding-left:18px}
+  .banner .ascent__step h3{font-size:22px}
+  .banner .ascent__step p{font-size:13px}
+}
