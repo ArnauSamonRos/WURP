@@ -23,8 +23,6 @@ export const CONFIG = {
     newsletter: ''              // Klaviyo / Mailchimp / Shopify Customer
   },
   map: {
-    center: [41.48, 2.17], zoom: 10,
-    tiles: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; OpenStreetMap &copy; CARTO'
+    svg: 'assets/img/catalunya.svg'   // generat amb scripts/gen_map.py
   }
 };

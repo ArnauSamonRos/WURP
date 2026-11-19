@@ -1,10 +1,11 @@
-// Carreres i clubs: carrera del mes, mapa (Leaflet, càrrega diferida), llistes i formulari.
+// Carreres i clubs: carrera del mes, mapa SVG de Catalunya (càrrega diferida), llistes i formulari.
 import { load } from './data.js';
 import { CONFIG } from './config.js';
 import { t, fmtDate } from './i18n.js';
 import { $, esc, peak, openDialog, submitForm } from './ui.js';
+import { SvgMap } from './svgmap.js';
 
-let races = [], clubs = [], map, layers = {};
+let races = [], clubs = [], map;
 
 const dcat = km => km <= 5 ? '5k' : km <= 10 ? '10k' : km <= 21.1 ? 'half' : 'marathon';
 const monthKey = iso => iso.slice(0, 7);
@@ -81,19 +82,7 @@ function fillMonths() {
   }).join(''));
 }
 
-/* ---------- Mapa ---------- */
-function loadLeaflet() {
-  return new Promise((res, rej) => {
-    if (window.L) return res(window.L);
-    const css = document.createElement('link');
-    css.rel = 'stylesheet'; css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
-    document.head.append(css);
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
-    s.onload = () => res(window.L); s.onerror = rej; document.head.append(s);
-  });
-}
-
+/* ---------- Mapa SVG ---------- */
 const popClub = c => `<div class="pop">${c.partner ? `<p class="pop__badge">${peak()}${t('map.partner')}</p>` : ''}<h3>${esc(c.name)}</h3>
   <p class="pop__k">Zona</p><p>${esc(c.zone)}</p><p class="pop__k">Entrenaments</p><p>${esc(c.days)}</p>
   <p><a href="mailto:${esc(c.contact)}">${esc(c.contact)}</a></p></div>`;
@@ -102,48 +91,28 @@ const popRace = r => `<div class="pop">${r.challenge ? `<p class="pop__badge">${
   <p>${km(r.distanceKm)} · ${t('rtype.' + r.type)} · ${esc(r.pace)}</p>
   <p><a href="${esc(r.url)}" target="_blank" rel="noopener">${t('map.signup')} →</a></p></div>`;
 
-const markers = {};
 function drawRaces(list) {
-  layers.races.clearLayers();
-  list.forEach(r => {
-    const icon = L.divIcon({ className: `mk mk--race ${r.challenge ? 'has-challenge' : ''}`, html: '<span></span>', iconSize: [24, 24] });
-    markers[r.id] = L.marker([r.lat, r.lng], { icon, title: r.name, keyboard: true }).bindPopup(popRace(r)).addTo(layers.races);
-  });
+  map.clear('races');
+  list.forEach(r => map.add('races', { id: r.id, lat: r.lat, lng: r.lng, html: '<span></span>', cls: `mk mk--race ${r.challenge ? 'has-challenge' : ''}`,
+    label: `Carrera: ${r.name}, ${fmtDate(r.date, { day: 'numeric', month: 'long' })}`, popup: popRace(r) }));
 }
 
 async function initMap() {
-  const el = $('#map');
-  const L = await loadLeaflet();
-  el.innerHTML = '';
-  const touch = matchMedia('(pointer:coarse)').matches;
-  map = L.map(el, { scrollWheelZoom: false, dragging: !touch, tap: true, zoomControl: true }).setView(CONFIG.map.center, CONFIG.map.zoom);
-  L.tileLayer(CONFIG.map.tiles, { attribution: CONFIG.map.attribution, maxZoom: 18, detectRetina: true }).addTo(map);
-  // En mòbil: un toc activa el mapa perquè l'scroll de la pàgina no quedi atrapat.
-  if (touch) {
-    const hint = document.createElement('button');
-    hint.className = 'map__hint'; hint.type = 'button'; hint.textContent = t('map.activate');
-    hint.addEventListener('click', () => { map.dragging.enable(); hint.remove(); });
-    el.append(hint);
-  }
-  map.on('focus', () => map.scrollWheelZoom.enable());
-  layers.clubs = L.layerGroup().addTo(map);
-  layers.races = L.layerGroup().addTo(map);
-  clubs.forEach(c => {
-    const icon = L.divIcon({ className: `mk mk--club ${c.partner ? 'is-partner' : ''}`, html: peak(), iconSize: c.partner ? [34, 40] : [26, 31], iconAnchor: c.partner ? [17, 40] : [13, 31] });
-    markers[c.id] = L.marker([c.lat, c.lng], { icon, title: c.name, keyboard: true, zIndexOffset: c.partner ? 500 : 0 }).bindPopup(popClub(c)).addTo(layers.clubs);
-  });
+  map = await new SvgMap($('#map')).load(CONFIG.map.svg);
+  clubs.forEach(c => map.add('clubs', { id: c.id, lat: c.lat, lng: c.lng, html: peak(), cls: `mk mk--club ${c.partner ? 'is-partner' : ''}`,
+    label: `Club: ${c.name}${c.partner ? ` (${t('map.partner')})` : ''}`, popup: popClub(c) }));
   drawRaces(filteredRaces());
-  const toggle = (id, layer) => $(id).addEventListener('change', e => e.target.checked ? map.addLayer(layers[layer]) : map.removeLayer(layers[layer]));
+  map.fit([...clubs, ...races].map(p => map.project(p.lat, p.lng)), 50);
+  const toggle = (id, layer) => $(id).addEventListener('change', e => map.show(layer, e.target.checked));
   toggle('#layerClubs', 'clubs'); toggle('#layerRaces', 'races');
 }
 
 function locate(id) {
   $('#map').scrollIntoView({ behavior: 'smooth', block: 'center' });
   const go = () => {
-    const m = markers[id]; if (!m) return;
     const isClub = id.startsWith('c'); const box = $(isClub ? '#layerClubs' : '#layerRaces');
     if (!box.checked) { box.checked = true; box.dispatchEvent(new Event('change')); }
-    map.flyTo(m.getLatLng(), 13, { duration: .6 }); setTimeout(() => m.openPopup(), 650);
+    map.open(id, 6);
   };
   map ? go() : mapReady.then(go);
 }

@@ -16,7 +16,9 @@ assets/js/config.js     ← Configuració: fonts de dades, Shopify, formularis, 
 assets/js/data.js       Carrega JSON o Google Sheets (CSV)
 assets/js/shop.js       Graella, filtres, fitxa, cistella
 assets/js/shopify.js    Adaptador Storefront API (cartCreate → checkout)
-assets/js/explore.js    Carrera del mes, mapa Leaflet (càrrega diferida), llistes, formulari
+assets/js/explore.js    Carrera del mes, mapa, llistes, formulari
+assets/js/svgmap.js     Mapa SVG de Catalunya (zoom, pessic, teclat, marcadors)
+assets/img/catalunya.svg  Mapa per comarques (generat amb scripts/gen_map.py)
 assets/js/challenges.js Repte actiu, Hall of Peaks, arxiu
 assets/js/i18n.js       Textos de la UI generada per JS
 data/*.json             ← Contingut editable (productes, clubs, carreres, reptes, Instagram)
@@ -45,3 +47,11 @@ Afegeix `'es'` a `CONFIG.languages`, completa `i18n/es.json` i marca els textos 
 - Connectar el feed d'Instagram (Behold, Elfsight o Graph API) a `data/instagram.json` o al component.
 - Integrar Strava OAuth per a la verificació dels reptes (requereix backend).
 - Textos legals reals (avís legal, privacitat, cookies).
+
+## Mapa de Catalunya
+`assets/img/catalunya.svg` es genera a partir del GeoJSON de comarques de
+[sirisacademic/catalonia-cartography](https://github.com/sirisacademic/catalonia-cartography):
+```bash
+python3 scripts/gen_map.py comarques.geojson assets/img/catalunya.svg
+```
+Els marcadors es col·loquen amb `lat`/`lng` dels JSON; no cal tocar l'SVG per afegir clubs o carreres.
